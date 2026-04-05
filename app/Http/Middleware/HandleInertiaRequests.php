@@ -8,6 +8,15 @@ use Inertia\Middleware;
 class HandleInertiaRequests extends Middleware
 {
     /**
+     *   Return all validation errors if true.
+     *
+     * @see https://inertiajs.com/docs/v3/the-basics/validation#multiple-errors-per-field
+     * 
+     * @var boolean
+     */
+    protected $withAllErrors = true;
+    
+    /**
      * The root template that's loaded on the first page visit.
      *
      * @see https://inertiajs.com/server-side-setup#root-template
