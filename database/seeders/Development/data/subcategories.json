@@ -1,0 +1,172 @@
+[
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "00-provisions",
+    "subcategoryName": "Provisions"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "11-welfare-items",
+    "subcategoryName": "Welfare Items"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "15-cloth-linen-products",
+    "subcategoryName": "Cloth Linen Products"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "17-tableware-galley-utensils",
+    "subcategoryName": "Tableware Galley Utensils"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "19-clothing",
+    "subcategoryName": "Clothing"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "21-rope-hawsers",
+    "subcategoryName": "Rope Hawsers"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "23-rigging-equipment-general-deck-items",
+    "subcategoryName": "Rigging Equipment General Deck Items"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "25-marine-paint",
+    "subcategoryName": "Marine Paint"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "27-painting-equipment",
+    "subcategoryName": "Painting Equipment"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "31-safety-protective-gear",
+    "subcategoryName": "Safety Protective Gear"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "33-safety-equipment",
+    "subcategoryName": "Safety Equipment"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "35-hose-couplings",
+    "subcategoryName": "Hose Couplings"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "37-nautical-equipment",
+    "subcategoryName": "Nautical Equipment"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "39-medicine",
+    "subcategoryName": "Medicine"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "47-stationery",
+    "subcategoryName": "Stationery"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "49-hardware",
+    "subcategoryName": "Hardware"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "53-lavatory-equipment",
+    "subcategoryName": "Lavatory Equipment"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "55-cleaning-material-chemicals",
+    "subcategoryName": "Cleaning Material Chemicals"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "67-metal-sheets-bars-etc",
+    "subcategoryName": "Metal Sheets Bars Etc"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "71-pipes-tubes",
+    "subcategoryName": "Pipes Tubes"
+  },
+  {
+    "categoryName": "DECK",
+    "subcategoryCode": "85-welding-equipment",
+    "subcategoryName": "Welding Equipment"
+  },
+  {
+    "categoryName": "ENGINE",
+    "subcategoryCode": "45-petroleum-products",
+    "subcategoryName": "Petroleum Products"
+  },
+  {
+    "categoryName": "ENGINE",
+    "subcategoryCode": "51-brushes-mats",
+    "subcategoryName": "Brushes Mats"
+  },
+  {
+    "categoryName": "ENGINE",
+    "subcategoryCode": "59-pneumatic-electrical-tools",
+    "subcategoryName": "Pneumatic Electrical Tools"
+  },
+  {
+    "categoryName": "ENGINE",
+    "subcategoryCode": "61-hand-tools",
+    "subcategoryName": "Hand Tools"
+  },
+  {
+    "categoryName": "ENGINE",
+    "subcategoryCode": "63-cutting-tools",
+    "subcategoryName": "Cutting Tools"
+  },
+  {
+    "categoryName": "ENGINE",
+    "subcategoryCode": "65-measuring-tools",
+    "subcategoryName": "Measuring Tools"
+  },
+  {
+    "categoryName": "ENGINE",
+    "subcategoryCode": "69-screws-nuts",
+    "subcategoryName": "Screws Nuts"
+  },
+  {
+    "categoryName": "ENGINE",
+    "subcategoryCode": "73-pipe-tube-fittings",
+    "subcategoryName": "Pipe Tube Fittings"
+  },
+  {
+    "categoryName": "ENGINE",
+    "subcategoryCode": "75-valves-cocks",
+    "subcategoryName": "Valves Cocks"
+  },
+  {
+    "categoryName": "ENGINE",
+    "subcategoryCode": "77-bearings",
+    "subcategoryName": "Bearings"
+  },
+  {
+    "categoryName": "ENGINE",
+    "subcategoryCode": "79-electrical-equipment",
+    "subcategoryName": "Electrical Equipment"
+  },
+  {
+    "categoryName": "ENGINE",
+    "subcategoryCode": "81-packing-jointing",
+    "subcategoryName": "Packing Jointing"
+  },
+  {
+    "categoryName": "ENGINE",
+    "subcategoryCode": "87-machinery-equipment",
+    "subcategoryName": "Machinery Equipment"
+  }
+]
