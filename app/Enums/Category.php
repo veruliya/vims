@@ -18,8 +18,8 @@ enum Category: string
     public function color(): string
     {
         return match ($this) {
-            self::DECK => 'danger',
-            self::ENGINE => 'accent',
+            self::DECK => 'accent',
+            self::ENGINE => 'danger',
         };
     }
 }
