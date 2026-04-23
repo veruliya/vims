@@ -1,3 +1,5 @@
+import type { ChipVariants } from "@heroui/styles";
+
 export interface Unit {
   id: number;
   short_name: string;
@@ -23,13 +25,13 @@ export interface Item {
   category: {
     value: string;
     label: string;
-    color: string;
+    color: ChipVariants['color'];
   };
   subcategory: string;
   severity: {
     value: string;
     label: string;
-    color: string;
+    color: ChipVariants['color'];
   };
   unit: Unit;
 }
@@ -41,7 +43,7 @@ export interface Stock {
   condition: {
     value: string;
     label: string;
-    color: string;
+    color: ChipVariants['color'];
   };
   item: Item;
   store: Store;
