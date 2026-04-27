@@ -1,0 +1,11 @@
+[mcp_servers.laravel-boost]
+command = "php"
+args = ["artisan", "boost:mcp"]
+cwd = "C:\\Users\\racsi\\projects\\laravel\\vims"
+
+[mcp_servers.heroui-react]
+command = "npx"
+args = ["-y", "@heroui/react-mcp@latest"]
+
+[projects.'C:\\Users\\racsi\\projects\\laravel\\vims']
+trust_level = "trusted"
