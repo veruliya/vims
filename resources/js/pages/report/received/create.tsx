@@ -4,9 +4,9 @@ import type { Selection } from '@heroui/react';
 import { useHttp, useForm } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
 
-import { index } from '@/actions/App/Http/Controllers/Api/StockController';
+import { index } from "@/actions/App/Http/Controllers/Api/StoreItemController";
 
-import type { Stock } from '@/types';
+import type { StoreItem } from '@/types';
 
 import { SelectedStickyBar } from './create/components/SelectedStickyBar';
 import { SelectionListBox } from './create/components/SelectionListBox';
@@ -25,16 +25,16 @@ export default function Create() {
   });
 
   const form = useForm<FormData>({
-    stocks: [],
+    storeItems: [],
   });
 
-  const [stocks, setStocks] = useState<Stock[]>([]);
-  const [stocksMap, setStocksMap] = useState<Map<string, Stock>>(new Map());
+  const [storeItems, setStoreItems] = useState<StoreItem[]>([]);
+  const [storeItemsMap, setStoreItemsMap] = useState<Map<string, StoreItem>>(new Map());
   const [hasMore, setHasMore] = useState(true);
 
   const selectedKeys = useMemo<Selection>(() => {
-    return new Set(form.data.stocks.map((stock) => stock.id));
-  }, [form.data.stocks]);
+    return new Set(form.data.storeItems.map((storeItem) => storeItem.id));
+  }, [form.data.storeItems]);
 
   function loadMore() {
     if (http.processing || !hasMore) {
@@ -45,10 +45,10 @@ export default function Create() {
       onSuccess: (response) => {
         const { data, meta } = response as HttpResponse;
 
-        setStocks((prev) => [...prev, ...data]);
-        setStocksMap((prev) => {
+        setStoreItems((prev) => [...prev, ...data]);
+        setStoreItemsMap((prev) => {
           const next = new Map(prev);
-          data.forEach((stock) => next.set(String(stock.id), stock));
+          data.forEach((storeItem) => next.set(String(storeItem.id), storeItem));
 
           return next;
         });
@@ -64,8 +64,8 @@ export default function Create() {
   return (
     <SelectionContext.Provider
       value={{
-        stocks,
-        stocksMap,
+        storeItems,
+        storeItemsMap,
         hasMore,
         loadMore,
         http,

@@ -16,15 +16,13 @@ class StockResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'minimum_quantity' => $this->minimum_quantity,
-            'available_quantity' => $this->available_quantity,
+            'quantity' => $this->available_quantity,
             'condition' => [
                 'value' => $this->condition->value,
                 'label' => $this->condition->label(),
                 'color' => $this->condition->color(),
             ],
-            'item' => new ItemResource($this->whenLoaded('item')),
-            'store' => new StoreResource($this->whenLoaded('store')),
+            'store_item' => new StoreItemResource($this->whenLoaded('storeItem')),
         ];
     }
 }

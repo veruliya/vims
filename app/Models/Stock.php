@@ -10,28 +10,20 @@ use Illuminate\Database\Eloquent\Model;
 #[Table('stocks')]
 
 #[Fillable([
-    'item_id',
-    'store_id',
+    'store_item_id',
     'condition',
-    'minimum_quantity',
-    'available_quantity',
+    'quantity',
 ])]
 
 class Stock extends Model
 {
     protected $casts = [
-        'minimum_quantity'   => 'float',
-        'available_quantity'   => 'float',
+        'quantity'   => 'float',
         'condition' => Condition::class,
     ];
 
-    public function item()
+    public function storeItem()
     {
-        return $this->belongsTo(Item::class, 'item_id', 'id');
-    }
-
-    public function store()
-    {
-        return $this->belongsTo(Store::class, 'store_id', 'id');
+        return $this->belongsTo(StoreItem::class, 'store_item_id', 'id');
     }
 }

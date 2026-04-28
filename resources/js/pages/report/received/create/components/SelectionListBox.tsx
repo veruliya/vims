@@ -16,16 +16,16 @@ import { Fragment } from 'react';
 
 import { cn } from '@/lib/utils';
 
-import type { Stock } from '@/types';
+import type { StoreItem } from '@/types';
 
 import { useSelected } from '../contexts/SelectedContext';
 import { useSelection } from '../contexts/SelectionContext';
 
-import type { StockWithUpdatedQuantity } from '../types';
+import type { StoreItemWithUpdatedQuantity } from '../types';
 
 export function SelectionListBox() {
   const { selectedKeys, form } = useSelected();
-  const { http, stocks, hasMore, loadMore, stocksMap } = useSelection();
+  const { http, storeItems, hasMore, loadMore, storeItemsMap } = useSelection();
 
   function handleSelectionChange(keys: Selection) {
     if (keys === 'all') {
@@ -33,25 +33,25 @@ export function SelectionListBox() {
     }
 
     form.setData(
-      'stocks',
+      'storeItems',
       Array.from(keys)
         .map((key) => {
-          if (form.data.stocks.map((stock) => stock.id).includes(Number(key))) {
-            return form.data.stocks.find((stock) => stock.id === Number(key));
+          if (form.data.storeItems.map((storeItem) => storeItem.id).includes(Number(key))) {
+            return form.data.storeItems.find((storeItem) => storeItem.id === Number(key));
           }
 
           return {
-            ...stocksMap.get(String(key)),
+            ...storeItemsMap.get(String(key)),
             updated_quantity: 0,
           };
         })
-        .filter(Boolean) as StockWithUpdatedQuantity[],
+        .filter(Boolean) as StoreItemWithUpdatedQuantity[],
     );
   }
 
   return (
     <ListBox
-      aria-label="Stocks"
+      aria-label="Selection Store Items"
       selectionMode="multiple"
       selectedKeys={selectedKeys}
       onSelectionChange={handleSelectionChange}
@@ -67,18 +67,18 @@ export function SelectionListBox() {
       )}
       className="absolute h-full overflow-y-auto pr-4"
     >
-      <Collection items={stocks}>
-        {(stock) => (
+      <Collection items={storeItems}>
+        {(storeItem) => (
           <ListBox.Item
-            id={stock.id}
-            textValue={stock.item.name}
+            id={storeItem.id}
+            textValue={storeItem.item.name}
             className={cn(
               'h-40 rounded-xl border border-transparent bg-surface shadow-md transition-all',
               'data-[selected=true]:border-accent data-[selected=true]:bg-accent/10',
               'data-[focus-visible=true]:border-accent data-[focus-visible=true]:bg-accent/10',
             )}
           >
-            <ListBoxItemContent stock={stock} />
+            <ListBoxItemContent storeItem={storeItem} />
           </ListBox.Item>
         )}
       </Collection>
@@ -98,7 +98,7 @@ export function SelectionListBox() {
   );
 }
 
-function ListBoxItemContent({ stock }: { stock: Stock }) {
+function ListBoxItemContent({ storeItem }: { storeItem: StoreItem }) {
   return (
     <>
       <div className="flex flex-1 flex-col gap-2">
@@ -106,26 +106,26 @@ function ListBoxItemContent({ stock }: { stock: Stock }) {
           <Chip
             variant="soft"
             size="sm"
-            color={stock.item.severity.color}
+            color={storeItem.item.severity.color}
           >
-            {stock.item.severity.label}
+            {storeItem.item.severity.label}
           </Chip>
           <Chip
             size="sm"
-            color={stock.item.category.color}
+            color={storeItem.item.category.color}
           >
-            {stock.item.category.label}
+            {storeItem.item.category.label}
           </Chip>
         </div>
-        <Description>{stock.item.subcategory}</Description>
-        <Label>{stock.item.name}</Label>
+        <Description>{storeItem.item.subcategory}</Description>
+        <Label>{storeItem.item.name}</Label>
         <div className="flex items-center gap-1 text-sm text-muted">
           <MapPin className="size-3" />
-          {stock.store.breadcrumbs.map((breadcrumb, index) => (
+          {storeItem.store.breadcrumbs.map((breadcrumb, index) => (
             <Fragment key={index}>
               {index > 0 && <ChevronRight className="size-3" />}
               <span
-                className={`${stock.store.breadcrumbs.length === index + 1 && 'font-bold'} text-sm`}
+                className={`${storeItem.store.breadcrumbs.length === index + 1 && 'font-bold'} text-sm`}
               >
                 {breadcrumb}
               </span>
@@ -134,23 +134,16 @@ function ListBoxItemContent({ stock }: { stock: Stock }) {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <Chip
-          size="sm"
-          variant="soft"
-          color={stock.condition.color}
-        >
-          {stock.condition.label}
-        </Chip>
         <Description className="text-sm font-semibold">
-          {stock.item.unit.full_name}
+          {storeItem.item.unit.full_name}
         </Description>
         <Description className="text-sm font-semibold text-accent">
-          {`MIN: ${stock.minimum_quantity}`}
+          {`MIN: ${storeItem.minimum_quantity}`}
         </Description>
         <Description
-          className={`text-sm font-semibold ${stock.available_quantity >= stock.minimum_quantity ? 'text-success' : 'text-danger'}`}
+          className={`text-sm font-semibold ${storeItem.available_quantity >= storeItem.minimum_quantity ? 'text-success' : 'text-danger'}`}
         >
-          {`AVL: ${stock.available_quantity}`}
+          {`AVL: ${storeItem.available_quantity}`}
         </Description>
       </div>
       <ListBox.ItemIndicator />

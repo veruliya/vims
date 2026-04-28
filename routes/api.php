@@ -3,9 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\StockController;
+use App\Http\Controllers\Api\StoreItemController;
 
-Route::apiResource('stocks', StockController::class);
+Route::apiResource('store-items', StoreItemController::class);
 
 Route::get('/user', function (Request $request) {
     return $request->user();

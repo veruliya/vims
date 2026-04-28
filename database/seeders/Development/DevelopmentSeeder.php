@@ -17,6 +17,7 @@ class DevelopmentSeeder extends Seeder
             VesselSeeder::class,
             StoreSeeder::class,
             ItemSeeder::class,
+            StoreItemSeeder::class,
             StockSeeder::class,
         ]);
     }

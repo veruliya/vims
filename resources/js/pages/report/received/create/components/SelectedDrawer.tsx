@@ -17,10 +17,10 @@ export function SelectedDrawer() {
             <Drawer.CloseTrigger /> {/* Optional: Close button */}
             <Drawer.Header>
               <Drawer.Heading>
-                {`${form.data.stocks.length} stocks selected`}
+                {`${form.data.storeItems.length} items selected`}
               </Drawer.Heading>
               <Description className="text-sm">
-                Set the quantity of the received stocks.
+                Set the quantity of the received items.
               </Description>
             </Drawer.Header>
             <Drawer.Body>
@@ -30,7 +30,7 @@ export function SelectedDrawer() {
               <div className="flex w-full justify-between">
                 <Button
                   variant="danger"
-                  onPress={() => form.setData('stocks', [])}
+                  onPress={() => form.setData('storeItems', [])}
                 >
                   Clear Selected
                 </Button>

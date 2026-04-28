@@ -36,15 +36,20 @@ export interface Item {
   unit: Unit;
 }
 
-export interface Stock {
+export interface StoreItem {
   id: number;
   minimum_quantity: number;
   available_quantity: number;
+  item: Item;
+  store: Store;
+}
+
+export interface Stock {
+  id: number;
+  quantity: number;
   condition: {
     value: string;
     label: string;
     color: ChipVariants['color'];
   };
-  item: Item;
-  store: Store;
 }
