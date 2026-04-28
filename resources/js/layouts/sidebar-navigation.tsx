@@ -4,6 +4,8 @@ import { Link, usePage } from '@inertiajs/react';
 import { welcome } from '@/routes';
 import { cn } from '@/lib/utils';
 
+import { index as reportReceivedIndex } from "@/routes/report/received";
+
 type NavigationLink = {
   href: string;
   label: string;
@@ -27,6 +29,18 @@ const navigationSections: NavigationSection[] = [
         href: welcome.url(),
         label: 'Welcome',
         matcher: (url) => url === welcome.url(),
+      },
+    ],
+  },
+  {
+    id: 'report',
+    icon: FileText,
+    label: 'Report',
+    links: [
+      {
+        href: reportReceivedIndex.url(),
+        label: 'Received',
+        matcher: (url) => url.startsWith(reportReceivedIndex.url()),
       },
     ],
   },
