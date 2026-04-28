@@ -1,12 +1,12 @@
 import type { useHttp } from '@inertiajs/react';
 import { useContext, createContext } from 'react';
 
-import type { Stock } from '@/types';
+import type { StoreItem } from '@/types';
 import type { HttpRequest } from '../types';
 
 interface SelectionContext {
-  stocks: Stock[];
-  stocksMap: Map<string, Stock>;
+  storeItems: StoreItem[];
+  storeItemsMap: Map<string, StoreItem>;
   hasMore: boolean;
   loadMore: () => void;
   http: ReturnType<typeof useHttp<HttpRequest>>;

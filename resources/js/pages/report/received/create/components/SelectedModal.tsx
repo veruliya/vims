@@ -14,13 +14,13 @@ import { Fragment } from 'react';
 
 import { useSelected } from '../contexts/SelectedContext';
 
-import type { StockWithUpdatedQuantity } from '../types';
+import type { StoreItemWithUpdatedQuantity } from '../types';
 
-export function SelectedModal({ stock }: { stock: StockWithUpdatedQuantity }) {
+export function SelectedModal({ storeItem }: { storeItem: StoreItemWithUpdatedQuantity }) {
   const { form } = useSelected();
 
   const updatedQuantity = Number(
-    stock.available_quantity + stock.updated_quantity,
+    storeItem.available_quantity + storeItem.updated_quantity,
   ).toFixed(2);
 
   return (
@@ -33,12 +33,12 @@ export function SelectedModal({ stock }: { stock: StockWithUpdatedQuantity }) {
           <Modal.Dialog className="overscroll-contain">
             <Modal.CloseTrigger /> {/* Optional: Close button */}
             <Modal.Header>
-              <Modal.Heading>Update Stock Quantity</Modal.Heading>
+              <Modal.Heading>Update Item Quantity</Modal.Heading>
             </Modal.Header>
             <Modal.Body className="flex flex-col gap-4 p-2">
               <div className="grid grid-cols-2 gap-y-2.5">
                 <Label>Item</Label>
-                <Description>{stock.item.name}</Description>
+                <Description>{storeItem.item.name}</Description>
 
                 <Separator className="col-span-2" />
 
@@ -47,9 +47,9 @@ export function SelectedModal({ stock }: { stock: StockWithUpdatedQuantity }) {
                   size="sm"
                   variant="soft"
                   className="w-fit"
-                  color={stock.item.severity.color}
+                  color={storeItem.item.severity.color}
                 >
-                  {stock.item.severity.label}
+                  {storeItem.item.severity.label}
                 </Chip>
 
                 <Separator className="col-span-2" />
@@ -58,25 +58,25 @@ export function SelectedModal({ stock }: { stock: StockWithUpdatedQuantity }) {
                 <Chip
                   size="sm"
                   className="w-fit"
-                  color={stock.item.category.color}
+                  color={storeItem.item.category.color}
                 >
-                  {stock.item.category.label}
+                  {storeItem.item.category.label}
                 </Chip>
 
                 <Separator className="col-span-2" />
 
                 <Label>Subcategory</Label>
-                <Description>{stock.item.subcategory}</Description>
+                <Description>{storeItem.item.subcategory}</Description>
 
                 <Separator className="col-span-2" />
 
                 <Label>Store</Label>
                 <div className="flex items-center gap-1">
-                  {stock.store.breadcrumbs.map((breadcrumb, index) => (
+                  {storeItem.store.breadcrumbs.map((breadcrumb, index) => (
                     <Fragment key={index}>
                       {index > 0 && <ChevronRight className="size-3" />}
                       <span
-                        className={`text-xs text-nowrap ${stock.store.breadcrumbs.length === index + 1 && 'font-bold'}`}
+                        className={`text-xs text-nowrap ${storeItem.store.breadcrumbs.length === index + 1 && 'font-bold'}`}
                       >
                         {breadcrumb}
                       </span>
@@ -87,38 +87,30 @@ export function SelectedModal({ stock }: { stock: StockWithUpdatedQuantity }) {
                 <Separator className="col-span-2" />
 
                 <Label>Condition</Label>
-                <Chip
-                  size="sm"
-                  className="w-fit"
-                  variant="soft"
-                  color={stock.condition.color}
-                >
-                  {stock.condition.label}
-                </Chip>
 
                 <Separator className="col-span-2" />
 
                 <Label>Unit</Label>
-                <Description>{stock.item.unit.full_name}</Description>
+                <Description>{storeItem.item.unit.full_name}</Description>
 
                 <Separator className="col-span-2" />
 
                 <Label>Minimum Quantity</Label>
-                <Description>{stock.minimum_quantity}</Description>
+                <Description>{storeItem.minimum_quantity}</Description>
 
                 <Separator className="col-span-2" />
 
                 <Label>Available Quantity</Label>
-                <Description>{stock.available_quantity}</Description>
+                <Description>{storeItem.available_quantity}</Description>
 
                 <Separator className="col-span-2" />
 
                 <Label>Updated Quantity</Label>
                 <div className="flex items-center gap-2 text-xs">
-                  <span>{stock.available_quantity}</span>
+                  <span>{storeItem.available_quantity}</span>
                   <span>+</span>
                   <span className="text-success">
-                    {stock.updated_quantity}
+                    {storeItem.updated_quantity}
                   </span>
                   <ArrowRight />
                   <span className="text-accent">{updatedQuantity}</span>
@@ -130,23 +122,23 @@ export function SelectedModal({ stock }: { stock: StockWithUpdatedQuantity }) {
                 <NumberField
                   isRequired
                   step={
-                    stock.item.unit.data_type === 'INTEGER'
+                    storeItem.item.unit.data_type === 'INTEGER'
                       ? Number(1)
                       : Number(0.01)
                   }
-                  value={stock.updated_quantity}
+                  value={storeItem.updated_quantity}
                   onChange={(value) =>
                     form.setData((data) => ({
                       ...data,
-                      stocks: data.stocks.map((currentStock) => {
-                        if (currentStock.id === stock.id) {
+                      storeItems: data.storeItems.map((currentStoreItem) => {
+                        if (currentStoreItem.id === storeItem.id) {
                           return {
-                            ...currentStock,
+                            ...currentStoreItem,
                             updated_quantity: Number.isFinite(value) ? value : 0,
                           };
                         }
 
-                        return currentStock;
+                        return currentStoreItem;
                       }),
                     }))
                   }

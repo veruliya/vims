@@ -34,4 +34,9 @@ class Item extends Model
     {
         return $this->hasMany(Stock::class);
     }
+
+    public function storeitems()
+    {
+        return $this->hasMany(StoreItem::class);
+    }
 }

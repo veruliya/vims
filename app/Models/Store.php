@@ -34,6 +34,11 @@ class Store extends Model
         return $this->hasMany(Stock::class);
     }
 
+    public function storeItems()
+    {
+        return $this->hasMany(StoreItem::class);
+    }
+
     public function parent()
     {
         return $this->belongsTo(Store::class, 'parent_id', 'id');
