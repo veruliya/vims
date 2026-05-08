@@ -1,7 +1,10 @@
-import type { StoreItem } from '@/types';
+import type { StoreItem, Enum } from '@/types';
+import type { Key } from '@heroui/react';
 
 export interface HttpRequest {
   cursor: string | null;
+  filter: Filter;
+  sort: string;
 }
 
 export interface HttpResponse {
@@ -17,3 +20,29 @@ export interface FormData {
   storeItems: StoreItemWithUpdatedQuantity[];
 }
 
+export interface Filter {
+  categories: string[];
+  severities: string[];
+  subcategories: Key[];
+  units: Key[];
+  stores: Key[];
+  name: string;
+}
+
+export interface StoreTree {
+  id: number;
+  name: string;
+  parent_id: number | null;
+  descendants: StoreTree[];
+}
+
+export interface PageProps {
+  [key: string]: unknown;
+  filterOptions: {
+    categories: Enum[];
+    severities: Enum[];
+    subcategories: Enum[];
+    units: Enum[];
+    stores: StoreTree[];
+  };
+}

@@ -9,7 +9,7 @@ export function SelectedDrawer() {
 
   return (
     <Drawer>
-      <Button variant="secondary">Show Selected</Button>
+      <Button>Show Selected</Button>
       <Drawer.Backdrop>
         <Drawer.Content>
           <Drawer.Dialog>

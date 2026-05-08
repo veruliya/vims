@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Traits\HasOptions;
+
 enum Severity: string
 {
+    use HasOptions;
+
     case CRITICAL = 'CRITICAL';
     case NON_CRITICAL = 'NON_CRITICAL';
 
@@ -15,7 +19,7 @@ enum Severity: string
         };
     }
 
-    public function color(): string
+    public function chipColor(): string
     {
         return match ($this) {
             self::CRITICAL => 'danger',

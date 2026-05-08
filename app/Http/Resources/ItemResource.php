@@ -20,13 +20,13 @@ class ItemResource extends JsonResource
             'category' => [
                 'value' => $this->category->value,
                 'label' => $this->category->label(),
-                'color' => $this->category->color(),
+                'chipColor' => $this->category->chipColor(),
             ],
             'subcategory' => $this->subcategory,
             'severity' => [
                 'value' => $this->severity->value,
                 'label' => $this->severity->label(),
-                'color' => $this->severity->color(),
+                'chipColor' => $this->severity->chipColor(),
             ],
             'unit' => new UnitResource($this->whenLoaded('unit')),
         ];

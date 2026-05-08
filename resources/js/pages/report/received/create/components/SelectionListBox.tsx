@@ -106,13 +106,13 @@ function ListBoxItemContent({ storeItem }: { storeItem: StoreItem }) {
           <Chip
             variant="soft"
             size="sm"
-            color={storeItem.item.severity.color}
+            color={storeItem.item.severity.chipColor}
           >
             {storeItem.item.severity.label}
           </Chip>
           <Chip
             size="sm"
-            color={storeItem.item.category.color}
+            color={storeItem.item.category.chipColor}
           >
             {storeItem.item.category.label}
           </Chip>

@@ -48,4 +48,9 @@ class Store extends Model
     {
         return $this->hasMany(Store::class, 'parent_id', 'id');
     }
+
+    public function descendants()
+    {
+        return $this->children()->with('descendants');
+    }
 }

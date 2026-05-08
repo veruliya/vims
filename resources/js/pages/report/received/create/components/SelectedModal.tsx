@@ -47,7 +47,7 @@ export function SelectedModal({ storeItem }: { storeItem: StoreItemWithUpdatedQu
                   size="sm"
                   variant="soft"
                   className="w-fit"
-                  color={storeItem.item.severity.color}
+                  color={storeItem.item.severity.chipColor}
                 >
                   {storeItem.item.severity.label}
                 </Chip>
@@ -58,7 +58,7 @@ export function SelectedModal({ storeItem }: { storeItem: StoreItemWithUpdatedQu
                 <Chip
                   size="sm"
                   className="w-fit"
-                  color={storeItem.item.category.color}
+                  color={storeItem.item.category.chipColor}
                 >
                   {storeItem.item.category.label}
                 </Chip>
@@ -83,10 +83,6 @@ export function SelectedModal({ storeItem }: { storeItem: StoreItemWithUpdatedQu
                     </Fragment>
                   ))}
                 </div>
-
-                <Separator className="col-span-2" />
-
-                <Label>Condition</Label>
 
                 <Separator className="col-span-2" />
 

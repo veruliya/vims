@@ -22,17 +22,9 @@ export interface Store {
 export interface Item {
   id: number;
   name: string;
-  category: {
-    value: string;
-    label: string;
-    color: ChipVariants['color'];
-  };
+  category: Enum;
   subcategory: string;
-  severity: {
-    value: string;
-    label: string;
-    color: ChipVariants['color'];
-  };
+  severity: Enum;
   unit: Unit;
 }
 
@@ -47,9 +39,11 @@ export interface StoreItem {
 export interface Stock {
   id: number;
   quantity: number;
-  condition: {
-    value: string;
-    label: string;
-    color: ChipVariants['color'];
-  };
+  condition: Enum;
+}
+
+export interface Enum {
+  value: string;
+  label: string;
+  chipColor?: ChipVariants['color'];
 }

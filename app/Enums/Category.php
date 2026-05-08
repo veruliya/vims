@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Traits\HasOptions;
+
 enum Category: string
 {
+    use HasOptions;
+    
     case DECK = 'DECK';
     case ENGINE = 'ENGINE';
 
@@ -15,7 +19,7 @@ enum Category: string
         };
     }
 
-    public function color(): string
+    public function chipColor(): string
     {
         return match ($this) {
             self::DECK => 'accent',

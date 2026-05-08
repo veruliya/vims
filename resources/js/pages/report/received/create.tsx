@@ -8,10 +8,13 @@ import { index } from "@/actions/App/Http/Controllers/Api/StoreItemController";
 
 import type { StoreItem } from '@/types';
 
+import { FilterSortStickyBar } from "./create/components/FilterSortStickyBar";
 import { SelectedStickyBar } from './create/components/SelectedStickyBar';
 import { SelectionListBox } from './create/components/SelectionListBox';
 import { SelectedContext } from './create/contexts/SelectedContext';
 import { SelectionContext } from './create/contexts/SelectionContext';
+
+import { initialFilter } from "./create/components/FilterDrawer";
 
 import type {
   HttpRequest,
@@ -22,6 +25,8 @@ import type {
 export default function Create() {
   const http = useHttp<HttpRequest>({
     cursor: null,
+    filter: initialFilter,
+    sort: 'id',
   });
 
   const form = useForm<FormData>({
@@ -65,8 +70,10 @@ export default function Create() {
     <SelectionContext.Provider
       value={{
         storeItems,
+        setStoreItems,
         storeItemsMap,
         hasMore,
+        setHasMore,
         loadMore,
         http,
       }}
@@ -77,6 +84,7 @@ export default function Create() {
           form,
         }}
       >
+        <FilterSortStickyBar />
         <div className="relative flex-1">
           <Virtualizer
             layout={ListLayout}
