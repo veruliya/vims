@@ -1,4 +1,4 @@
-import { ChevronRight, ArrowRight, Pencil } from '@gravity-ui/icons';
+import { ChevronRight, ArrowRight, Pencil, MapPin } from '@gravity-ui/icons';
 
 import {
   Button,
@@ -8,6 +8,7 @@ import {
   Modal,
   NumberField,
   Separator,
+  Card,
 } from '@heroui/react';
 
 import { Fragment } from 'react';
@@ -16,7 +17,11 @@ import { useSelected } from '../contexts/SelectedContext';
 
 import type { StoreItemWithUpdatedQuantity } from '../types';
 
-export function SelectedModal({ storeItem }: { storeItem: StoreItemWithUpdatedQuantity }) {
+export function SelectedModal({
+  storeItem,
+}: {
+  storeItem: StoreItemWithUpdatedQuantity;
+}) {
   const { form } = useSelected();
 
   const updatedQuantity = Number(
@@ -25,7 +30,10 @@ export function SelectedModal({ storeItem }: { storeItem: StoreItemWithUpdatedQu
 
   return (
     <Modal>
-      <Button isIconOnly className="shrink-0">
+      <Button
+        isIconOnly
+        className="shrink-0"
+      >
         <Pencil />
       </Button>
       <Modal.Backdrop>
@@ -33,88 +41,81 @@ export function SelectedModal({ storeItem }: { storeItem: StoreItemWithUpdatedQu
           <Modal.Dialog className="overscroll-contain">
             <Modal.CloseTrigger /> {/* Optional: Close button */}
             <Modal.Header>
-              <Modal.Heading>Update Item Quantity</Modal.Heading>
-            </Modal.Header>
-            <Modal.Body className="flex flex-col gap-4 p-2">
-              <div className="grid grid-cols-2 gap-y-2.5">
-                <Label>Item</Label>
-                <Description>{storeItem.item.name}</Description>
-
-                <Separator className="col-span-2" />
-
-                <Label>Severity</Label>
-                <Chip
-                  size="sm"
-                  variant="soft"
-                  className="w-fit"
-                  color={storeItem.item.severity.chipColor}
-                >
-                  {storeItem.item.severity.label}
-                </Chip>
-
-                <Separator className="col-span-2" />
-
-                <Label>Category</Label>
-                <Chip
-                  size="sm"
-                  className="w-fit"
-                  color={storeItem.item.category.chipColor}
-                >
-                  {storeItem.item.category.label}
-                </Chip>
-
-                <Separator className="col-span-2" />
-
-                <Label>Subcategory</Label>
-                <Description>{storeItem.item.subcategory}</Description>
-
-                <Separator className="col-span-2" />
-
-                <Label>Store</Label>
-                <div className="flex items-center gap-1">
-                  {storeItem.store.breadcrumbs.map((breadcrumb, index) => (
-                    <Fragment key={index}>
-                      {index > 0 && <ChevronRight className="size-3" />}
-                      <span
-                        className={`text-xs text-nowrap ${storeItem.store.breadcrumbs.length === index + 1 && 'font-bold'}`}
-                      >
-                        {breadcrumb}
-                      </span>
-                    </Fragment>
-                  ))}
-                </div>
-
-                <Separator className="col-span-2" />
-
-                <Label>Unit</Label>
-                <Description>{storeItem.item.unit.full_name}</Description>
-
-                <Separator className="col-span-2" />
-
-                <Label>Minimum Quantity</Label>
-                <Description>{storeItem.minimum_quantity}</Description>
-
-                <Separator className="col-span-2" />
-
-                <Label>Available Quantity</Label>
-                <Description>{storeItem.available_quantity}</Description>
-
-                <Separator className="col-span-2" />
-
-                <Label>Updated Quantity</Label>
-                <div className="flex items-center gap-2 text-xs">
-                  <span>{storeItem.available_quantity}</span>
-                  <span>+</span>
-                  <span className="text-success">
-                    {storeItem.updated_quantity}
-                  </span>
-                  <ArrowRight />
-                  <span className="text-accent">{updatedQuantity}</span>
-                </div>
-
-                <Separator className="col-span-2" />
+              <div className="flex items-center gap-1">
+                <MapPin className="size-4" />
+                {storeItem.store.breadcrumbs.map((breadcrumb, index) => (
+                  <Fragment key={index}>
+                    {index > 0 && <ChevronRight className="size-3" />}
+                    <Description
+                      className={`${storeItem.store.breadcrumbs.length === index + 1 && 'font-semibold'} text-sm`}
+                    >
+                      {breadcrumb}
+                    </Description>
+                  </Fragment>
+                ))}
               </div>
-              <div className="flex flex-col gap-4">
+              <Modal.Heading className="font-bold">
+                {storeItem.item.name}
+              </Modal.Heading>
+              <div className="flex justify-between">
+                <div className="flex gap-1">
+                  <Chip
+                    variant="soft"
+                    size="sm"
+                    color={storeItem.item.severity.chipColor}
+                    className="h-fit"
+                  >
+                    {storeItem.item.severity.label}
+                  </Chip>
+                  <Chip
+                    size="sm"
+                    color={storeItem.item.category.chipColor}
+                    className="h-fit"
+                  >
+                    {storeItem.item.category.label}
+                  </Chip>
+                </div>
+                <Description className="text-right font-semibold">
+                  {storeItem.item.subcategory}
+                </Description>
+              </div>
+              <Separator />
+            </Modal.Header>
+            <Modal.Body>
+              <div className="flex flex-col gap-4 p-1">
+                <div className="grid grid-cols-[144px_1fr] gap-y-4">
+                  <Label className="text-muted">Unit</Label>
+                  <Description className="text-sm font-semibold text-surface-foreground">
+                    {storeItem.item.unit.full_name}
+                  </Description>
+                  <Label className="text-muted">Minimum Quantity</Label>
+                  <Description className="text-sm font-semibold text-surface-foreground">
+                    {storeItem.minimum_quantity}
+                  </Description>
+                </div>
+
+                <div className="flex flex-col rounded-2xl border">
+                  <div className="flex items-center justify-between rounded-t-2xl p-3">
+                    <Label className="text-muted">Available Quantity</Label>
+                    <Description className="text-sm font-semibold text-surface-foreground">
+                      {storeItem.available_quantity}
+                    </Description>
+                  </div>
+                  <Separator />
+                  <div className="flex items-center justify-between p-3">
+                    <Label className="text-muted">Received Quantity</Label>
+                    <Description className="text-sm font-semibold text-success">
+                      + {storeItem.updated_quantity}
+                    </Description>
+                  </div>
+                  <div className="flex items-center justify-between rounded-b-2xl bg-surface-secondary p-3">
+                    <Label className="font-bold text-muted">Result</Label>
+                    <Description className="text-sm font-bold text-accent">
+                      {updatedQuantity}
+                    </Description>
+                  </div>
+                </div>
+
                 <NumberField
                   isRequired
                   step={
@@ -130,7 +131,9 @@ export function SelectedModal({ storeItem }: { storeItem: StoreItemWithUpdatedQu
                         if (currentStoreItem.id === storeItem.id) {
                           return {
                             ...currentStoreItem,
-                            updated_quantity: Number.isFinite(value) ? value : 0,
+                            updated_quantity: Number.isFinite(value)
+                              ? value
+                              : 0,
                           };
                         }
 
@@ -139,10 +142,10 @@ export function SelectedModal({ storeItem }: { storeItem: StoreItemWithUpdatedQu
                     }))
                   }
                 >
-                  <Label>Received Quantity</Label>
+                  <Label className="text-muted pb-2">Received Quantity</Label>
                   <NumberField.Group className="h-fit border border-border-secondary">
                     <NumberField.DecrementButton />
-                    <NumberField.Input />
+                    <NumberField.Input className="text-center" />
                     <NumberField.IncrementButton />
                   </NumberField.Group>
                 </NumberField>
