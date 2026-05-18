@@ -2,7 +2,7 @@ import { Plus } from '@gravity-ui/icons';
 import { Button } from '@heroui/react';
 import { router } from '@inertiajs/react';
 
-import { create } from "@/actions/App/Http/Controllers/Report/ReceivedController";
+import { create } from "@/actions/App/Http/Controllers/ReceivedReportController";
 
 export default function Index() {
   return (
