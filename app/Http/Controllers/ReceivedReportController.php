@@ -17,7 +17,7 @@ class ReceivedReportController extends Controller
 {
     public function index()
     {
-        return Inertia::render('report/received/index');
+        return Inertia::render('received-report/index');
     }
 
     public function create()
