@@ -15,17 +15,17 @@ import { Fragment } from 'react';
 
 import { useSelected } from '../contexts/SelectedContext';
 
-import type { StoreItemWithUpdatedQuantity } from '../types';
+import type { StoreItemWithReceivedQuantity } from '../types';
 
 export function SelectedModal({
   storeItem,
 }: {
-  storeItem: StoreItemWithUpdatedQuantity;
+  storeItem: StoreItemWithReceivedQuantity;
 }) {
   const { form } = useSelected();
 
-  const updatedQuantity = Number(
-    storeItem.available_quantity + storeItem.updated_quantity,
+  const receivedQuantity = Number(
+    storeItem.available_quantity + storeItem.received_quantity,
   ).toFixed(2);
 
   return (
@@ -105,13 +105,13 @@ export function SelectedModal({
                   <div className="flex items-center justify-between p-3">
                     <Label className="text-muted">Received Quantity</Label>
                     <Description className="text-sm font-semibold text-success">
-                      + {storeItem.updated_quantity}
+                      + {storeItem.received_quantity}
                     </Description>
                   </div>
                   <div className="flex items-center justify-between rounded-b-2xl bg-surface-secondary p-3">
                     <Label className="font-bold text-muted">Result</Label>
                     <Description className="text-sm font-bold text-accent">
-                      {updatedQuantity}
+                      {receivedQuantity}
                     </Description>
                   </div>
                 </div>
@@ -123,7 +123,7 @@ export function SelectedModal({
                       ? Number(1)
                       : Number(0.01)
                   }
-                  value={storeItem.updated_quantity}
+                  value={storeItem.received_quantity}
                   onChange={(value) =>
                     form.setData((data) => ({
                       ...data,
@@ -131,7 +131,7 @@ export function SelectedModal({
                         if (currentStoreItem.id === storeItem.id) {
                           return {
                             ...currentStoreItem,
-                            updated_quantity: Number.isFinite(value)
+                            received_quantity: Number.isFinite(value)
                               ? value
                               : 0,
                           };

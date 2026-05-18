@@ -21,7 +21,7 @@ import type { StoreItem } from '@/types';
 import { useSelected } from '../contexts/SelectedContext';
 import { useSelection } from '../contexts/SelectionContext';
 
-import type { StoreItemWithUpdatedQuantity } from '../types';
+import type { StoreItemWithReceivedQuantity } from '../types';
 
 export function SelectionListBox() {
   const { selectedKeys, form } = useSelected();
@@ -42,10 +42,10 @@ export function SelectionListBox() {
 
           return {
             ...storeItemsMap.get(String(key)),
-            updated_quantity: 0,
+            received_quantity: 0,
           };
         })
-        .filter(Boolean) as StoreItemWithUpdatedQuantity[],
+        .filter(Boolean) as StoreItemWithReceivedQuantity[],
     );
   }
 

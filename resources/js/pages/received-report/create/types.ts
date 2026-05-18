@@ -12,12 +12,12 @@ export interface HttpResponse {
   meta: { next_cursor: string | null };
 }
 
-export interface StoreItemWithUpdatedQuantity extends StoreItem {
-  updated_quantity: number;
+export interface StoreItemWithReceivedQuantity extends StoreItem {
+  received_quantity: number;
 }
 
 export interface FormData {
-  storeItems: StoreItemWithUpdatedQuantity[];
+  storeItems: StoreItemWithReceivedQuantity[];
 }
 
 export interface Filter {

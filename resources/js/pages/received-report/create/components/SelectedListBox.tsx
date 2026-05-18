@@ -52,7 +52,7 @@ export function SelectedListBox() {
             id={storeItem.id}
             textValue={storeItem.item.name}
             className={cn(
-              storeItem.updated_quantity !== 0 &&
+              storeItem.received_quantity !== 0 &&
                 'border-success bg-success/10',
               'h-52 rounded-xl border shadow-md transition-all',
             )}
@@ -109,12 +109,12 @@ export function SelectedListBox() {
                 <SelectedModal storeItem={storeItem} />
                 <div className="flex flex-row items-center gap-2">
                   <span className="text-base font-semibold text-success">
-                    {`+${storeItem.updated_quantity}`}
+                    {`+${storeItem.received_quantity}`}
                   </span>
                   <ArrowRight />
                   <span className="text-base font-semibold text-accent">
                     {Number(
-                      storeItem.available_quantity + storeItem.updated_quantity,
+                      storeItem.available_quantity + storeItem.received_quantity,
                     ).toFixed(2)}
                   </span>
                 </div>
