@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Report;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Inertia\Inertia;
@@ -14,7 +13,7 @@ use App\Models\Item;
 use App\Models\Unit;
 use App\Models\Store;
 
-class ReceivedController extends Controller
+class ReceivedReportController extends Controller
 {
     public function index()
     {
@@ -54,6 +53,6 @@ class ReceivedController extends Controller
             ],
         ];
 
-        return Inertia::render('report/received/create', $props);
+        return Inertia::render('received-report/create', $props);
     }
 }

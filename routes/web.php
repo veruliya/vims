@@ -2,12 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Report\ReceivedController;
+use App\Http\Controllers\ReceivedReportController;
 
 Route::inertia('/', 'welcome')->name('welcome');
 
 Route::prefix('report')->group(function () {
-    Route::prefix('received')->controller(ReceivedController::class)->group(function () {
+    Route::prefix('received')->controller(ReceivedReportController::class)->group(function () {
         Route::get('/', 'index')->name('report.received.index');
         Route::get('create', 'create')->name('report.received.create');
     });
