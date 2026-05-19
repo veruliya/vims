@@ -54,4 +54,9 @@ class StoreItemController extends Controller
 
         return StoreItemResource::collection($items);
     }
+
+    public function store(Request $request)
+    {
+        dd($request->all());
+    }
 }
