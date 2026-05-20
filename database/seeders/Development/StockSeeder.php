@@ -11,21 +11,21 @@ use App\Models\StoreItem;
 
 use App\Enums\Condition;
 
-use App\Services\SeederUtility;
+use App\Support\Randomizer;
 
 class StockSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run(SeederUtility $seederUtility): void
+    public function run(): void
     {
         $storeItems = StoreItem::get();
 
         $conditions = Condition::cases();
 
         try {
-            DB::transaction(function () use ($storeItems, $conditions, $seederUtility) {
+            DB::transaction(function () use ($storeItems, $conditions, ) {
 
                 foreach ($storeItems as $storeItem) {
 
@@ -37,7 +37,7 @@ class StockSeeder extends Seeder
                         Stock::create([
                             'store_item_id' => $storeItem->id,
                             'condition' => $condition,
-                            'quantity' => $seederUtility->randomQuantity($dataType),
+                            'quantity' => Randomizer::randomQuantity($dataType),
                         ]);
                     }
                 }

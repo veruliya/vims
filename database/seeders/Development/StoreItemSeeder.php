@@ -10,21 +10,21 @@ use App\Models\Item;
 use App\Models\Store;
 use App\Models\StoreItem;
 
-use App\Services\SeederUtility;
+use App\Support\Randomizer;
 
 class StoreItemSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run(SeederUtility $seederUtility): void
+    public function run(): void
     {
         $items = Item::get();
 
         $stores = Store::get();
 
         try {
-            DB::transaction(function () use ($items, $stores, $seederUtility) {
+            DB::transaction(function () use ($items, $stores, ) {
                 foreach ($stores as $store) {
                     $category = strtoupper($store->breadcrumbs[0]);
 
@@ -37,7 +37,7 @@ class StoreItemSeeder extends Seeder
                         StoreItem::create([
                             'item_id' => $item->id,
                             'store_id' => $store->id,
-                            'minimum_quantity' => $seederUtility->randomQuantity($dataType),
+                            'minimum_quantity' => Randomizer::randomQuantity($dataType),
                         ]);
                     }
                 }
