@@ -17,7 +17,7 @@ class StoreItemResource extends JsonResource
         return [
             'id' => $this->id,
             'minimum_quantity' => $this->minimum_quantity,
-            'available_quantity' => $this->available_quantity,
+            'balance' => $this->balance,
             'item' => new ItemResource($this->whenLoaded('item')),
             'store' => new StoreResource($this->whenLoaded('store')),
         ];

@@ -31,7 +31,7 @@ export interface Item {
 export interface StoreItem {
   id: number;
   minimum_quantity: number;
-  available_quantity: number;
+  balance: number;
   item: Item;
   store: Store;
 }

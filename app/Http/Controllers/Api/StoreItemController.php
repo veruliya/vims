@@ -30,7 +30,7 @@ class StoreItemController extends Controller
             )
             ->join('items', 'items.id', '=', 'store_items.item_id')
             ->join('units', 'units.id', '=', 'items.unit_id')
-            ->withSum('stocks as available_quantity', 'quantity')
+            ->withSum('stocks as balance', 'quantity')
             ->whereRelation('store', 'vessel_id', 1);
 
         $items = QueryBuilder::for($query)
@@ -44,7 +44,7 @@ class StoreItemController extends Controller
             )
             ->allowedSorts(
                 AllowedSort::field('id', 'store_items.id'),
-                AllowedSort::custom('available_quantity', new TieBreakerSort(), 'available_quantity'),
+                AllowedSort::custom('balance', new TieBreakerSort(), 'balance'),
                 AllowedSort::custom('unit', new TieBreakerSort(), 'unit_full_name'),
                 AllowedSort::custom('name', new TieBreakerSort(), 'item_name'),
                 AllowedSort::custom('subcategory', new TieBreakerSort(), 'item_subcategory'),

@@ -8,12 +8,12 @@ const options = [
     label: 'Default',
   },
   {
-    value: '-available_quantity',
-    label: 'Highest Available Stock Quantity',
+    value: '-balance',
+    label: 'Highest Balance',
   },
   {
-    value: 'available_quantity',
-    label: 'Lowest Available Stock Quantity',
+    value: 'balance',
+    label: 'Lowest Balance',
   },
   {
     value: 'name',

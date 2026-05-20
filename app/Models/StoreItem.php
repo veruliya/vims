@@ -18,7 +18,7 @@ class StoreItem extends Model
 {
     protected $casts = [
         'minimal_quantity'   => 'float',
-        'available_quantity'   => 'float',
+        'balance'   => 'float',
     ];
 
     public function item()

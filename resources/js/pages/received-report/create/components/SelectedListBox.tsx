@@ -99,9 +99,9 @@ export function SelectedListBox() {
                     {`MIN: ${storeItem.minimum_quantity}`}
                   </Description>
                   <Description
-                    className={`text-sm font-semibold ${storeItem.available_quantity >= storeItem.minimum_quantity ? 'text-success' : 'text-danger'}`}
+                    className={`text-sm font-semibold ${storeItem.balance >= storeItem.minimum_quantity ? 'text-success' : 'text-danger'}`}
                   >
-                    {`AVL: ${storeItem.available_quantity}`}
+                    {`BAL: ${storeItem.balance}`}
                   </Description>
                 </div>
               </div>
@@ -114,7 +114,7 @@ export function SelectedListBox() {
                   <ArrowRight />
                   <span className="text-base font-semibold text-accent">
                     {Number(
-                      storeItem.available_quantity + storeItem.received_quantity,
+                      storeItem.balance + storeItem.received_quantity,
                     ).toFixed(2)}
                   </span>
                 </div>

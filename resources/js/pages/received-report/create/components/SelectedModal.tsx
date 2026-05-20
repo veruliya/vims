@@ -24,8 +24,8 @@ export function SelectedModal({
 }) {
   const { form } = useSelected();
 
-  const receivedQuantity = Number(
-    storeItem.available_quantity + storeItem.received_quantity,
+  const updatedQuantity = Number(
+    storeItem.balance + storeItem.received_quantity,
   ).toFixed(2);
 
   return (
@@ -96,9 +96,9 @@ export function SelectedModal({
 
                 <div className="flex flex-col rounded-2xl border">
                   <div className="flex items-center justify-between rounded-t-2xl p-3">
-                    <Label className="text-muted">Available Quantity</Label>
+                    <Label className="text-muted">Balance</Label>
                     <Description className="text-sm font-semibold text-surface-foreground">
-                      {storeItem.available_quantity}
+                      {storeItem.balance}
                     </Description>
                   </div>
                   <Separator />
@@ -111,7 +111,7 @@ export function SelectedModal({
                   <div className="flex items-center justify-between rounded-b-2xl bg-surface-secondary p-3">
                     <Label className="font-bold text-muted">Result</Label>
                     <Description className="text-sm font-bold text-accent">
-                      {receivedQuantity}
+                      {updatedQuantity}
                     </Description>
                   </div>
                 </div>
