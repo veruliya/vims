@@ -11,13 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 #[Fillable([
     'store_id',
     'item_id',
-    'minimal_quantity',
+    'minimum_quantity',
 ])]
 
 class StoreItem extends Model
 {
     protected $casts = [
-        'minimal_quantity'   => 'float',
+        'minimum_quantity'   => 'float',
         'balance'   => 'float',
     ];
 
