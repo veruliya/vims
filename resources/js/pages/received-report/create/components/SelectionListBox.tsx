@@ -143,7 +143,7 @@ function ListBoxItemContent({ storeItem }: { storeItem: StoreItem }) {
         <Description
           className={`text-sm font-semibold ${storeItem.balance >= storeItem.minimum_quantity ? 'text-success' : 'text-danger'}`}
         >
-          {`BAL: ${storeItem.balance}`}
+          {`BAL: ${storeItem?.balance ?? 0}`}
         </Description>
       </div>
       <ListBox.ItemIndicator />

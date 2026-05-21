@@ -30,7 +30,7 @@ class StoreItemController extends Controller
             )
             ->join('items', 'items.id', '=', 'store_items.item_id')
             ->join('units', 'units.id', '=', 'items.unit_id')
-            ->withSum('stocks as balance', 'quantity')
+            ->selectRaw('COALESCE((SELECT SUM(quantity) FROM movements WHERE movements.store_item_id = store_items.id), 0) as balance')
             ->whereRelation('store', 'vessel_id', 1);
 
         $items = QueryBuilder::for($query)
