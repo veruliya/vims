@@ -19,6 +19,7 @@ class DevelopmentSeeder extends Seeder
             ItemSeeder::class,
             StoreItemSeeder::class,
             StockSeeder::class,
+            ReceivedReportSeeder::class,
         ]);
     }
 }
