@@ -35,4 +35,9 @@ class StoreItem extends Model
     {
         return $this->hasMany(Stock::class);
     }
+
+    public function movements()
+    {
+        return $this->hasMany(Movement::class);
+    }
 }
