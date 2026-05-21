@@ -55,4 +55,9 @@ class ReceivedReportController extends Controller
 
         return Inertia::render('received-report/create', $props);
     }
+
+    public function store(Request $request)
+    {
+        dd($request->all());
+    }
 }
