@@ -1,4 +1,5 @@
 import type { ChipVariants } from "@heroui/styles";
+import { User } from "@/types";
 
 export interface Unit {
   id: number;
@@ -46,4 +47,11 @@ export interface Enum {
   value: string;
   label: string;
   chipColor?: ChipVariants['color'];
+}
+
+export interface ReceivedReport {
+  id: number;
+  created_by: User;
+  number: string;
+  formatted_created_at: string;
 }

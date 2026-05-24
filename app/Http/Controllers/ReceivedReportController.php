@@ -30,7 +30,15 @@ class ReceivedReportController extends Controller
 {
     public function index()
     {
-        return Inertia::render('received-report/index');
+        $receivedReports = ReceivedReport::with('createdBy')
+            ->where('vessel_id', 1)
+            ->get();
+
+        $props = [
+            'receivedReports' => $receivedReports,
+        ];
+
+        return Inertia::render('received-report/index', $props);
     }
 
     public function create()
@@ -127,5 +135,18 @@ class ReceivedReportController extends Controller
         });
 
         return to_route('report.received.index');
+    }
+
+    public function show(string $id)
+    {
+        $receivedReport = ReceivedReport::with(['createdBy'])
+            ->where('id', $id)
+            ->first();
+
+        $props = [
+            'receivedReport' => $receivedReport,
+        ];
+
+        return Inertia::render('received-report/show', $props);
     }
 }
