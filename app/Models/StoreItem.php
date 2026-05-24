@@ -31,11 +31,6 @@ class StoreItem extends Model
         return $this->belongsTo(Store::class, 'store_id', 'id');
     }
 
-    public function stocks()
-    {
-        return $this->hasMany(Stock::class);
-    }
-
     public function movements()
     {
         return $this->hasMany(Movement::class);

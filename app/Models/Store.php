@@ -28,12 +28,7 @@ class Store extends Model
     {
         return $this->belongsTo(Vessel::class, 'vessel_id', 'id');
     }
-
-    public function stocks()
-    {
-        return $this->hasMany(Stock::class);
-    }
-
+    
     public function storeItems()
     {
         return $this->hasMany(StoreItem::class);

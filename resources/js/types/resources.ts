@@ -37,12 +37,6 @@ export interface StoreItem {
   store: Store;
 }
 
-export interface Stock {
-  id: number;
-  quantity: number;
-  condition: Enum;
-}
-
 export interface Enum {
   value: string;
   label: string;
