@@ -11,7 +11,9 @@ use App\Models\Vessel;
 use App\Models\StoreItem;
 use App\Models\ReceivedReport;
 use App\Models\Movement;
+use App\Models\Snapshot;
 
+use App\Enums\MovementType;
 use App\Enums\Condition;
 
 use App\Support\Randomizer;
@@ -57,25 +59,27 @@ class ReceivedReportSeeder extends Seeder
 
                     foreach ($randomStoreItems as $storeItem) {
 
-                        Movement::create([
+                        $movement = Movement::create([
                             'store_item_id' => $storeItem->id,
-                            'store_item_snapshot' => [
-                                'store_name' => $storeItem->store->name,
-                                'store_breadcrumbs' => $storeItem->store->breadcrumbs,
-                                'unit_short_name' => $storeItem->item->unit->short_name,
-                                'unit_full_name' => $storeItem->item->unit->full_name,
-                                'unit_data_type' => $storeItem->item->unit->data_type,
-                                'item_category' => $storeItem->item->category,
-                                'item_subcategory' => $storeItem->item->subcategory,
-                                'item_name' => $storeItem->item->name,
-                                'item_severity' => $storeItem->item->severity,
-                                'store_item_minimum_quantity' => $storeItem->minimum_quantity,
-                            ],
                             'quantity' => Randomizer::randomQuantity($storeItem->item->unit->data_type),
-                            'type' => 'RECEIVED',
-                            'condition' => 'NORMAL',
+                            'type' => MovementType::RECEIVED,
+                            'condition' => Condition::NORMAL,
                             'movementable_type' => ReceivedReport::class,
                             'movementable_id' => $receivedReport->id,
+                        ]);
+
+                        Snapshot::create([
+                            'movement_id' => $movement->id,
+                            'store_name' => $storeItem->store->name,
+                            'store_breadcrumbs' => $storeItem->store->breadcrumbs,
+                            'unit_short_name' => $storeItem->item->unit->short_name,
+                            'unit_full_name' => $storeItem->item->unit->full_name,
+                            'unit_data_type' => $storeItem->item->unit->data_type,
+                            'item_category' => $storeItem->item->category,
+                            'item_subcategory' => $storeItem->item->subcategory,
+                            'item_name' => $storeItem->item->name,
+                            'item_severity' => $storeItem->item->severity,
+                            'store_item_minimum_quantity' => $storeItem->minimum_quantity,
                         ]);
                     }
                 }

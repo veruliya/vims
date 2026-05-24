@@ -40,4 +40,9 @@ class StoreItem extends Model
     {
         return $this->hasMany(Movement::class);
     }
+
+    public function snapshot()
+    {
+        return $this->hasOne(Snapshot::class);
+    }
 }
