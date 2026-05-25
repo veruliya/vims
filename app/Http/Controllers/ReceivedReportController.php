@@ -31,15 +31,7 @@ class ReceivedReportController extends Controller
 {
     public function index()
     {
-        $receivedReports = ReceivedReport::with('createdBy')
-            ->where('vessel_id', 1)
-            ->get();
-
-        $props = [
-            'receivedReports' => $receivedReports,
-        ];
-
-        return Inertia::render('received-report/index', $props);
+        return Inertia::render('received-report/index');
     }
 
     public function create()
