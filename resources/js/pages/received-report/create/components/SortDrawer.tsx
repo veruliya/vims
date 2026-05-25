@@ -9,10 +9,9 @@ export function SortDrawer() {
     <Drawer>
       <Button
         variant="secondary"
-        fullWidth
+        isIconOnly
       >
         <BarsDescendingAlignCenter />
-        Sort
       </Button>
       <Drawer.Backdrop>
         <Drawer.Content placement="bottom">

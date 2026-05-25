@@ -8,8 +8,8 @@ export function FilterSortStickyBar() {
   return (
     <StickyBar placement="top">
       <div className="flex items-center gap-2 p-2">
-        <SortDrawer />
         <FilterDrawer />
+        <SortDrawer />
       </div>
     </StickyBar>
   )

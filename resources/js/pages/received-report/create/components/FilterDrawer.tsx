@@ -52,10 +52,9 @@ export function FilterDrawer() {
     <Drawer>
       <Button
         variant="secondary"
-        fullWidth
+        isIconOnly
       >
         <Funnel />
-        Filter
       </Button>
       <Drawer.Backdrop>
         <Drawer.Content placement="right">
