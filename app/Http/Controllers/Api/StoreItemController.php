@@ -44,10 +44,10 @@ class StoreItemController extends Controller
             )
             ->allowedSorts(
                 AllowedSort::field('id', 'store_items.id'),
-                AllowedSort::custom('balance', new TieBreakerSort(), 'balance'),
-                AllowedSort::custom('unit', new TieBreakerSort(), 'unit_full_name'),
-                AllowedSort::custom('name', new TieBreakerSort(), 'item_name'),
-                AllowedSort::custom('subcategory', new TieBreakerSort(), 'item_subcategory'),
+                AllowedSort::custom('balance', new TieBreakerSort('store_items.id'), 'balance'),
+                AllowedSort::custom('unit', new TieBreakerSort('store_items.id'), 'unit_full_name'),
+                AllowedSort::custom('name', new TieBreakerSort('store_items.id'), 'item_name'),
+                AllowedSort::custom('subcategory', new TieBreakerSort('store_items.id'), 'item_subcategory'),
             )
             ->defaultSort('id')
             ->cursorPaginate(20);
