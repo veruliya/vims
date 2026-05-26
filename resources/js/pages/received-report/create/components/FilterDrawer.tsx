@@ -25,6 +25,9 @@ export function FilterDrawer() {
   const [storeTableExpandedKeys, setStoreTableExpandedKeys] =
     useState<Selection>(new Set());
 
+  const [showAllSubcategories, setShowAllSubcategories] = useState<boolean>(false);
+  const [showAllUnits, setShowAllUnits] = useState<boolean>(false);
+
   const { http, setStoreItems, setHasMore } = useSelection();
 
   function applyFilter() {
@@ -57,7 +60,7 @@ export function FilterDrawer() {
         <Funnel />
       </Button>
       <Drawer.Backdrop>
-        <Drawer.Content placement="right">
+        <Drawer.Content placement="bottom">
           <Drawer.Dialog>
             <Drawer.CloseTrigger /> {/* Optional: Close button */}
             <Drawer.Header>
@@ -69,6 +72,10 @@ export function FilterDrawer() {
                 setFilter={setFilter}
                 storeTableExpandedKeys={storeTableExpandedKeys}
                 setStoreTableExpandedKeys={setStoreTableExpandedKeys}
+                showAllSubcategories={showAllSubcategories}
+                setShowAllSubcategories={setShowAllSubcategories}
+                showAllUnits={showAllUnits}
+                setShowAllUnits={setShowAllUnits}
               />
             </Drawer.Body>
             <Drawer.Footer>

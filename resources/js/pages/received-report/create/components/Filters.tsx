@@ -1,9 +1,6 @@
 import {
   Label,
   ToggleButton,
-  Select,
-  ListBox,
-  Collection,
   Table,
   SearchField,
   Checkbox,
@@ -13,7 +10,7 @@ import {
 
 import type { Selection } from '@heroui/react';
 
-import { Plus, Minus } from '@gravity-ui/icons';
+import { Plus, Minus, ChevronUp, ChevronDown } from '@gravity-ui/icons';
 
 import { usePage } from '@inertiajs/react';
 
@@ -24,6 +21,10 @@ export function Filters({
   setFilter,
   storeTableExpandedKeys,
   setStoreTableExpandedKeys,
+  showAllSubcategories,
+  setShowAllSubcategories,
+  showAllUnits,
+  setShowAllUnits,
 }: {
   filter: Filter;
   setFilter: (value: Filter | ((prev: Filter) => Filter)) => void;
@@ -31,6 +32,12 @@ export function Filters({
   setStoreTableExpandedKeys: (
     value: Selection | ((prev: Selection) => Selection),
   ) => void;
+  showAllSubcategories: boolean;
+  setShowAllSubcategories: (
+    value: boolean | ((prev: boolean) => boolean),
+  ) => void;
+  showAllUnits: boolean;
+  setShowAllUnits: (value: boolean | ((prev: boolean) => boolean)) => void;
 }) {
   const { filterOptions } = usePage<PageProps>().props;
   const { categories, severities, subcategories, units, stores } =
@@ -128,80 +135,154 @@ export function Filters({
         </div>
       </div>
 
-      {/* Subcategory */}
+      {/* Subcategories */}
 
-      <Select
-        placeholder="Filter by subcategories"
-        variant="secondary"
-        selectionMode="multiple"
-        value={filter.subcategories}
-        onChange={(keys) =>
-          setFilter((prev) => ({
-            ...prev,
-            subcategories: keys,
-          }))
-        }
-      >
+      <div className="flex flex-col gap-1">
         <Label>Subcategories</Label>
-        <Select.Trigger>
-          <Select.Value className="text-sm" />
-          <Select.Indicator />
-        </Select.Trigger>
-        <Select.Popover>
-          <ListBox selectionMode="multiple">
-            <Collection items={subcategories}>
-              {({ value, label }) => (
-                <ListBox.Item
-                  id={value}
-                  textValue={label}
+
+        <div className="flex flex-wrap gap-2">
+          {showAllSubcategories ? (
+            <>
+              {subcategories.map((subcategory) => (
+                <ToggleButton
+                  key={subcategory.value}
+                  size="sm"
+                  isSelected={filter.subcategories.includes(subcategory.value)}
+                  onChange={(value) => {
+                    if (value === true) {
+                      setFilter((prev) => ({
+                        ...prev,
+                        subcategories: [
+                          ...prev.subcategories,
+                          subcategory.value,
+                        ],
+                      }));
+                    } else {
+                      setFilter((prev) => ({
+                        ...prev,
+                        subcategories: prev.subcategories.filter(
+                          (v) => v !== subcategory.value,
+                        ),
+                      }));
+                    }
+                  }}
                 >
-                  {label}
-                  <ListBox.ItemIndicator />
-                </ListBox.Item>
-              )}
-            </Collection>
-          </ListBox>
-        </Select.Popover>
-      </Select>
+                  {subcategory.label}
+                </ToggleButton>
+              ))}
+            </>
+          ) : (
+            <>
+              {subcategories.slice(0, 5).map((subcategory) => (
+                <ToggleButton
+                  key={subcategory.value}
+                  size="sm"
+                  isSelected={filter.subcategories.includes(subcategory.value)}
+                  onChange={(value) => {
+                    if (value === true) {
+                      setFilter((prev) => ({
+                        ...prev,
+                        subcategories: [
+                          ...prev.subcategories,
+                          subcategory.value,
+                        ],
+                      }));
+                    } else {
+                      setFilter((prev) => ({
+                        ...prev,
+                        subcategories: prev.subcategories.filter(
+                          (v) => v !== subcategory.value,
+                        ),
+                      }));
+                    }
+                  }}
+                >
+                  {subcategory.label}
+                </ToggleButton>
+              ))}
+            </>
+          )}
+        </div>
+        <Button
+          variant="ghost"
+          className="text-accent"
+          onPress={() => setShowAllSubcategories((prev) => !prev)}
+        >
+          {showAllSubcategories ? 'Show Less' : 'Show All'}
+          {showAllSubcategories ? <ChevronUp /> : <ChevronDown />}
+        </Button>
+      </div>
 
-      {/* Unit */}
+      {/* Units */}
 
-      <Select
-        placeholder="Filter by units"
-        variant="secondary"
-        selectionMode="multiple"
-        value={filter.units}
-        onChange={(keys) =>
-          setFilter((prev) => ({
-            ...prev,
-            units: keys,
-          }))
-        }
-      >
+      <div className="flex flex-col gap-1">
         <Label>Units</Label>
-        <Select.Trigger>
-          <Select.Value className="text-sm" />
-          <Select.Indicator />
-        </Select.Trigger>
-        <Select.Popover>
-          <ListBox selectionMode="multiple">
-            <Collection items={units}>
-              {({ value, label }) => (
-                <ListBox.Item
-                  id={value}
-                  textValue={label}
+
+        <div className="flex flex-wrap gap-2">
+          {showAllUnits ? (
+            <>
+              {units.map((unit) => (
+                <ToggleButton
+                  key={unit.value}
+                  size="sm"
+                  isSelected={filter.units.includes(unit.value)}
+                  onChange={(value) => {
+                    if (value === true) {
+                      setFilter((prev) => ({
+                        ...prev,
+                        units: [...prev.units, unit.value],
+                      }));
+                    } else {
+                      setFilter((prev) => ({
+                        ...prev,
+                        units: prev.units.filter((v) => v !== unit.value),
+                      }));
+                    }
+                  }}
                 >
-                  {label}
-                  <ListBox.ItemIndicator />
-                </ListBox.Item>
-              )}
-            </Collection>
-          </ListBox>
-        </Select.Popover>
-      </Select>
+                  {unit.label}
+                </ToggleButton>
+              ))}
+            </>
+          ) : (
+            <>
+              {units.slice(0, 8).map((unit) => (
+                <ToggleButton
+                  key={unit.value}
+                  size="sm"
+                  isSelected={filter.units.includes(unit.value)}
+                  onChange={(value) => {
+                    if (value === true) {
+                      setFilter((prev) => ({
+                        ...prev,
+                        units: [...prev.units, unit.value],
+                      }));
+                    } else {
+                      setFilter((prev) => ({
+                        ...prev,
+                        units: prev.units.filter((v) => v !== unit.value),
+                      }));
+                    }
+                  }}
+                >
+                  {unit.label}
+                </ToggleButton>
+              ))}
+            </>
+          )}
+        </div>
+        <Button
+          variant="ghost"
+          className="text-accent"
+          onPress={() => setShowAllUnits((prev) => !prev)}
+        >
+          {showAllUnits ? 'Show Less' : 'Show All'}
+          {showAllUnits ? <ChevronUp /> : <ChevronDown />}
+        </Button>
+      </div>
 
       {/* Store */}
-      
+
       <div className="flex flex-col gap-1">
         <Label>Stores</Label>
 
