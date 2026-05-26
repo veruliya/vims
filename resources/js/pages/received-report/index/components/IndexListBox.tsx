@@ -13,48 +13,16 @@ import {
   Spinner,
 } from '@heroui/react';
 
-import { router, useHttp } from '@inertiajs/react';
-
-import { useState } from 'react';
+import { router } from '@inertiajs/react';
 
 import { show } from '@/actions/App/Http/Controllers/ReceivedReportController';
 
 import { ReceivedReport } from '@/types';
 
-import { HttpRequest, HttpResponse } from '../types';
-
-import { index } from '@/actions/App/Http/Controllers/Api/ReceivedReportController';
+import { useList } from '../contexts/ListContext';
 
 export function IndexListBox() {
-  const http = useHttp<HttpRequest>({
-    cursor: null,
-    filter: {},
-    sort: '-created_at',
-  });
-
-  const [receivedReports, setReceivedReports] = useState<ReceivedReport[]>([]);
-
-  const [hasMore, setHasMore] = useState(true);
-
-  function loadMore() {
-    if (http.processing || !hasMore) {
-      return;
-    }
-
-    http.get(index.url(), {
-      onSuccess: (response) => {
-        const { data, meta } = response as HttpResponse;
-
-        setReceivedReports((prev) => [...prev, ...data]);
-
-        http.setData('cursor', meta.next_cursor);
-
-        if (!meta.next_cursor) {
-          setHasMore(false);
-        }
-      },
-    });
-  }
+  const { http, receivedReports, hasMore, loadMore } = useList();
 
   return (
     <ListBox
@@ -105,7 +73,7 @@ function ListBoxItemContent({
 }) {
   return (
     <>
-      <ArrowRightToSquare className="size-5 shrink-0 text-muted" />
+      <ArrowRightToSquare className="size-6 shrink-0 text-muted" />
       <div className="flex flex-col">
         <Label>{receivedReport.number}</Label>
         <Description>{receivedReport.formatted_created_at}</Description>
