@@ -31,12 +31,49 @@ class ReceivedReportController extends Controller
 {
     public function index()
     {
-        return Inertia::render('received-report/index');
+        $props = [
+            'backUrl' => null,
+            'breadcrumbs' => [
+                [
+                    'url' => '/',
+                    'title' => 'Home',
+                ],
+                [
+                    'url' => '#/reporting',
+                    'title' => 'Reporting',
+                ],
+                [
+                    'url' => '/reporting/received-reports',
+                    'title' => 'Received Reports',
+                ],
+            ],
+        ];
+
+        return Inertia::render('received-report/index', $props);
     }
 
     public function create()
     {
         $props = [
+            'backUrl' => '/reporting/received-reports',
+            'breadcrumbs' => [
+                [
+                    'url' => '/',
+                    'title' => 'Home',
+                ],
+                [
+                    'url' => '#/reporting',
+                    'title' => 'Reporting',
+                ],
+                [
+                    'url' => '/reporting/received-reports',
+                    'title' => 'Received Reports',
+                ],
+                [
+                    'url' => '/reporting/received-reports/create',
+                    'title' => 'Create',
+                ],
+            ],
             'filterOptions' => [
                 'categories' => Category::options(),
                 'severities' => Severity::options(),
@@ -139,6 +176,25 @@ class ReceivedReportController extends Controller
             ->first();
 
         $props = [
+            'backUrl' => '/reporting/received-reports',
+            'breadcrumbs' => [
+                [
+                    'url' => '/',
+                    'title' => 'Home',
+                ],
+                [
+                    'url' => '#/reporting',
+                    'title' => 'Reporting',
+                ],
+                [
+                    'url' => '/reporting/received-reports',
+                    'title' => 'Received Reports',
+                ],
+                [
+                    'url' => '/reporting/received-reports/show' . "/{$receivedReport->id}",
+                    'title' => $receivedReport->number,
+                ],
+            ],
             'receivedReport' => $receivedReport,
         ];
 

@@ -1,6 +1,7 @@
 import { ThemeSwitch } from './theme-switch';
 import { SmallScreenSidebar } from './small-screen-sidebar';
 import { LargeScreenSidebar } from "./large-screen-sidebar";
+import { AppBarNavigation } from "./app-bar-navigation";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -11,7 +12,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </header>
       <div className="sm:grid sm:grid-cols-[16rem_auto]">
         <LargeScreenSidebar />
-        <main className="flex flex-col min-h-full">{children}</main>
+        <div className="flex flex-col min-h-full">
+          <AppBarNavigation />
+          <main className="flex flex-col flex-1">{children}</main>
+        </div>
       </div>
     </div>
   );
