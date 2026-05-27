@@ -39,7 +39,7 @@ const navigationSections: NavigationSection[] = [
     links: [
       {
         href: receivedReportIndex.url(),
-        label: 'Received Report',
+        label: 'Received Reports',
         matcher: (url) => url.startsWith(receivedReportIndex.url()),
       },
     ],
