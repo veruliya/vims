@@ -19,10 +19,10 @@ import { show } from '@/actions/App/Http/Controllers/ReceivedReportController';
 
 import { ReceivedReport } from '@/types';
 
-import { useList } from '../contexts/ListContext';
+import { useIndex } from '../contexts/IndexContext';
 
 export function IndexListBox() {
-  const { http, receivedReports, hasMore, loadMore } = useList();
+  const { http, receivedReports, hasMore, loadMore } = useIndex();
 
   return (
     <ListBox

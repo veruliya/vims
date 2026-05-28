@@ -4,7 +4,7 @@ import { useContext, createContext } from 'react';
 import type { ReceivedReport } from '@/types';
 import type { HttpRequest } from '../types';
 
-interface ListContext {
+interface IndexContext {
   receivedReports: ReceivedReport[];
   setReceivedReports: (
     value: ReceivedReport[] | ((prev: ReceivedReport[]) => ReceivedReport[]),
@@ -15,13 +15,13 @@ interface ListContext {
   http: ReturnType<typeof useHttp<HttpRequest>>;
 }
 
-export const ListContext = createContext<ListContext | null>(null);
+export const IndexContext = createContext<IndexContext | null>(null);
 
-export function useList() {
-  const context = useContext(ListContext);
+export function useIndex() {
+  const context = useContext(IndexContext);
 
   if (!context) {
-    throw new Error('useList must be used within ListContext.Provider');
+    throw new Error('useIndex must be used within IndexContext.Provider');
   }
 
   return context;

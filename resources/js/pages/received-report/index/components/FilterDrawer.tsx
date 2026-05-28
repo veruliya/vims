@@ -7,7 +7,7 @@ import { Filters } from './Filters';
 
 import type { Filter } from '../types';
 
-import { useList } from '../contexts/ListContext';
+import { useIndex } from '../contexts/IndexContext';
 
 import { Funnel } from '@gravity-ui/icons';
 
@@ -23,7 +23,7 @@ export function FilterDrawer() {
   const [from, setFrom] = useState<DateValue | null>(null);
   const [to, setTo] = useState<DateValue | null>(null);
 
-  const { http, setReceivedReports, setHasMore } = useList();
+  const { http, setReceivedReports, setHasMore } = useIndex();
 
   function applyFilter() {
     http.setData((data) => ({

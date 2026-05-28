@@ -1,6 +1,6 @@
 import { RadioGroup, Radio, Label } from '@heroui/react';
 
-import { useList } from '../contexts/ListContext';
+import { useIndex } from '../contexts/IndexContext';
 
 const options = [
   {
@@ -30,7 +30,7 @@ const options = [
 ];
 
 export function Sorts() {
-  const { http, setReceivedReports, setHasMore } = useList();
+  const { http, setReceivedReports, setHasMore } = useIndex();
 
   function applySort(value: string) {
     http.setData((data) => ({

@@ -8,7 +8,7 @@ import { index } from '@/actions/App/Http/Controllers/Api/ReceivedReportControll
 import { create } from '@/actions/App/Http/Controllers/ReceivedReportController';
 
 import { IndexListBox } from './index/components/IndexListBox';
-import { ListContext } from './index/contexts/ListContext';
+import { IndexContext } from './index/contexts/IndexContext';
 import { SortDrawer } from './index/components/SortDrawer';
 import { FilterDrawer } from './index/components/FilterDrawer';
 
@@ -51,7 +51,7 @@ export default function Index() {
   }
 
   return (
-    <ListContext
+    <IndexContext
       value={{
         receivedReports,
         setReceivedReports,
@@ -84,6 +84,6 @@ export default function Index() {
           <IndexListBox />
         </Virtualizer>
       </div>
-    </ListContext>
+    </IndexContext>
   );
 }
