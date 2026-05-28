@@ -38,7 +38,7 @@ export function IndexListBox() {
         </>
       )}
       onAction={(key) => router.get(show(key))}
-      className="absolute h-full overflow-y-auto"
+      className="absolute h-full overflow-y-auto p-0"
     >
       <Collection items={receivedReports}>
         {(receivedReport) => (
@@ -78,12 +78,11 @@ function ListBoxItemContent({
         <Label>{receivedReport.number}</Label>
         <Description>{receivedReport.formatted_created_at}</Description>
       </div>
-      <div className="ms-auto">
-        <Label className="w-32 truncate text-right">
+      <div className="ms-auto self-start">
+        <Label className="w-32 truncate text-right font-normal">
           {receivedReport.created_by.name}
         </Label>
       </div>
-      <CircleChevronRightFill className="size-5 shrink-0 text-accent" />
     </>
   );
 }

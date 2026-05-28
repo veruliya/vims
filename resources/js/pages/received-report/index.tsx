@@ -79,7 +79,7 @@ export default function Index() {
       <div className="relative flex-1">
         <Virtualizer
           layout={ListLayout}
-          layoutOptions={{ rowSize: 52, gap: 16, padding: 8 }}
+          layoutOptions={{ rowSize: 48, gap: 8, padding: 8 }}
         >
           <IndexListBox />
         </Virtualizer>
