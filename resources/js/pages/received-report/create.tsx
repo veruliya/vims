@@ -8,11 +8,14 @@ import { index } from "@/actions/App/Http/Controllers/Api/StoreItemController";
 
 import type { StoreItem } from '@/types';
 
-import { FilterSortStickyBar } from "./create/components/FilterSortStickyBar";
-import { SelectedStickyBar } from './create/components/SelectedStickyBar';
+import { StickyBar } from "@/components/StickyBar";
+
 import { SelectionListBox } from './create/components/SelectionListBox';
 import { SelectedContext } from './create/contexts/SelectedContext';
 import { SelectionContext } from './create/contexts/SelectionContext';
+import { FilterDrawer } from "./create/components/FilterDrawer";
+import { SortDrawer } from "./create/components/SortDrawer";
+import { SelectedDrawer } from "./create/components/SelectedDrawer";
 
 import { initialFilter } from "./create/components/FilterDrawer";
 
@@ -84,7 +87,12 @@ export default function Create() {
           form,
         }}
       >
-        <FilterSortStickyBar />
+        <StickyBar placement="top">
+          <div className="flex items-center gap-2 p-2">
+            <FilterDrawer />
+            <SortDrawer />
+          </div>
+        </StickyBar>
         <div className="relative flex-1">
           <Virtualizer
             layout={ListLayout}
@@ -93,7 +101,12 @@ export default function Create() {
             <SelectionListBox />
           </Virtualizer>
         </div>
-        <SelectedStickyBar />
+        <StickyBar placement="bottom">
+          <div className="flex items-center justify-between p-4">
+            <span className="text-sm font-semibold">{`${form.data.storeItems.length} items selected`}</span>
+            <SelectedDrawer />
+          </div>
+        </StickyBar>
       </SelectedContext.Provider>
     </SelectionContext.Provider>
   );
