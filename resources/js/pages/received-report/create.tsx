@@ -88,7 +88,7 @@ export default function Create() {
         <div className="relative flex-1">
           <Virtualizer
             layout={ListLayout}
-            layoutOptions={{ rowSize: 160, gap: 16, padding: 14 }}
+            layoutOptions={{ rowSize: 160, gap: 16, padding: 16 }}
           >
             <SelectionListBox />
           </Virtualizer>

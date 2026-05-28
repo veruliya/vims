@@ -38,7 +38,7 @@ export function IndexListBox() {
         </>
       )}
       onAction={(key) => router.get(show(key))}
-      className="absolute h-full overflow-y-auto pr-4"
+      className="absolute h-full overflow-y-auto"
     >
       <Collection items={receivedReports}>
         {(receivedReport) => (

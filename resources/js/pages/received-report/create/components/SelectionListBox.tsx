@@ -65,7 +65,7 @@ export function SelectionListBox() {
           )}
         </>
       )}
-      className="absolute h-full overflow-y-auto pr-4"
+      className="absolute h-full overflow-y-auto"
     >
       <Collection items={storeItems}>
         {(storeItem) => (

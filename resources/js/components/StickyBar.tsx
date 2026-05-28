@@ -12,7 +12,7 @@ export function StickyBar({
   return (
     <div
       className={cn(
-        'sticky z-10 border-y bg-surface text-surface-foreground',
+        'sticky z-10 border-y bg-background text-foreground',
         placement === 'top' ? 'top-0' : 'bottom-0',
         className
       )}
