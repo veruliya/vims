@@ -1,26 +1,21 @@
 import {
   ArrowRight,
-  ChevronRight,
-  MapPin,
   Tray,
   TrashBin,
 } from '@gravity-ui/icons';
 
 import {
   Button,
-  Chip,
   Collection,
-  Description,
   EmptyState,
-  Label,
   ListBox,
 } from '@heroui/react';
-
-import { Fragment } from 'react';
 
 import { cn } from '@/lib/utils';
 
 import type { StoreItem } from '@/types';
+
+import { StoreItemContent } from "@/components/StoreItemContent";
 
 import { useSelected } from '../contexts/SelectedContext';
 import { SelectedModal } from './SelectedModal';
@@ -44,7 +39,7 @@ export function SelectedListBox() {
           <span>No data available.</span>
         </EmptyState>
       )}
-      className="gap-4"
+      className="gap-2 px-0 pb-2"
     >
       <Collection items={form.data.storeItems}>
         {(storeItem) => (
@@ -54,57 +49,11 @@ export function SelectedListBox() {
             className={cn(
               storeItem.received_quantity !== 0 &&
                 'border-success bg-success/10',
-              'h-52 rounded-xl border shadow-md transition-all',
+              'h-40 rounded-xl border shadow-md transition-all',
             )}
           >
             <div className="flex h-full w-full flex-col justify-between">
-              <div className="flex flex-row gap-2 pt-2">
-                <div className="flex flex-1 flex-col gap-2">
-                  <div className="flex items-center gap-1">
-                    <Chip
-                      variant="soft"
-                      size="sm"
-                      color={storeItem.item.severity.chipColor}
-                    >
-                      {storeItem.item.severity.label}
-                    </Chip>
-                    <Chip
-                      size="sm"
-                      color={storeItem.item.category.chipColor}
-                    >
-                      {storeItem.item.category.label}
-                    </Chip>
-                  </div>
-                  <Description>{storeItem.item.subcategory}</Description>
-                  <Label>{storeItem.item.name}</Label>
-                  <div className="flex items-center gap-1 text-sm text-muted">
-                    <MapPin className="size-3" />
-                    {storeItem.store.breadcrumbs.map((breadcrumb, index) => (
-                      <Fragment key={index}>
-                        {index > 0 && <ChevronRight className="size-3" />}
-                        <span
-                          className={`${storeItem.store.breadcrumbs.length === index + 1 && 'font-bold'} text-sm`}
-                        >
-                          {breadcrumb}
-                        </span>
-                      </Fragment>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <Description className="text-sm font-semibold">
-                    {storeItem.item.unit.full_name}
-                  </Description>
-                  <Description className="text-sm font-semibold text-accent">
-                    {`MIN: ${storeItem.minimum_quantity}`}
-                  </Description>
-                  <Description
-                    className={`text-sm font-semibold ${storeItem.balance >= storeItem.minimum_quantity ? 'text-success' : 'text-danger'}`}
-                  >
-                    {`BAL: ${storeItem?.balance ?? 0}`}
-                  </Description>
-                </div>
-              </div>
+              <StoreItemContent storeItem={storeItem} />
               <div className="flex justify-between">
                 <SelectedModal storeItem={storeItem} />
                 <div className="flex flex-row items-center gap-2">

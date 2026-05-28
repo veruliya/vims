@@ -1,18 +1,14 @@
-import { Tray, MapPin, ChevronRight } from '@gravity-ui/icons';
+import { Tray } from '@gravity-ui/icons';
 
 import {
   Collection,
-  Chip,
-  Description,
   EmptyState,
-  Label,
   ListBox,
   ListBoxLoadMoreItem,
   Spinner,
+  Checkbox,
 } from '@heroui/react';
 import type { Selection } from '@heroui/react';
-
-import { Fragment } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -20,6 +16,8 @@ import type { StoreItem } from '@/types';
 
 import { useSelected } from '../contexts/SelectedContext';
 import { useSelection } from '../contexts/SelectionContext';
+
+import { StoreItemContent } from "@/components/StoreItemContent";
 
 import type { StoreItemWithReceivedQuantity } from '../types';
 
@@ -65,7 +63,7 @@ export function SelectionListBox() {
           )}
         </>
       )}
-      className="absolute h-full overflow-y-auto"
+      className="absolute h-full overflow-y-auto p-0"
     >
       <Collection items={storeItems}>
         {(storeItem) => (
@@ -73,7 +71,7 @@ export function SelectionListBox() {
             id={storeItem.id}
             textValue={storeItem.item.name}
             className={cn(
-              'h-40 rounded-xl border border-transparent bg-surface shadow-md transition-all',
+              'h-28 rounded-xl border border-transparent bg-surface shadow-md transition-all',
               'data-[selected=true]:border-accent data-[selected=true]:bg-accent/10',
               'data-[focus-visible=true]:border-accent data-[focus-visible=true]:bg-accent/10',
             )}
@@ -101,52 +99,16 @@ export function SelectionListBox() {
 function ListBoxItemContent({ storeItem }: { storeItem: StoreItem }) {
   return (
     <>
-      <div className="flex flex-1 flex-col gap-2">
-        <div className="flex items-center gap-1">
-          <Chip
-            variant="soft"
-            size="sm"
-            color={storeItem.item.severity.chipColor}
-          >
-            {storeItem.item.severity.label}
-          </Chip>
-          <Chip
-            size="sm"
-            color={storeItem.item.category.chipColor}
-          >
-            {storeItem.item.category.label}
-          </Chip>
-        </div>
-        <Description>{storeItem.item.subcategory}</Description>
-        <Label>{storeItem.item.name}</Label>
-        <div className="flex items-center gap-1 text-sm text-muted">
-          <MapPin className="size-3" />
-          {storeItem.store.breadcrumbs.map((breadcrumb, index) => (
-            <Fragment key={index}>
-              {index > 0 && <ChevronRight className="size-3" />}
-              <span
-                className={`${storeItem.store.breadcrumbs.length === index + 1 && 'font-bold'} text-sm`}
-              >
-                {breadcrumb}
-              </span>
-            </Fragment>
-          ))}
-        </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <Description className="text-sm font-semibold">
-          {storeItem.item.unit.full_name}
-        </Description>
-        <Description className="text-sm font-semibold text-accent">
-          {`MIN: ${storeItem.minimum_quantity}`}
-        </Description>
-        <Description
-          className={`text-sm font-semibold ${storeItem.balance >= storeItem.minimum_quantity ? 'text-success' : 'text-danger'}`}
-        >
-          {`BAL: ${storeItem?.balance ?? 0}`}
-        </Description>
-      </div>
-      <ListBox.ItemIndicator />
+      <ListBox.ItemIndicator>
+        {({ isSelected }) => (
+          <Checkbox id={storeItem.id.toString()} isSelected={isSelected} variant="secondary" className="self-start">
+            <Checkbox.Control>
+              <Checkbox.Indicator />
+            </Checkbox.Control>
+          </Checkbox>
+        )}
+      </ListBox.ItemIndicator>
+      <StoreItemContent storeItem={storeItem} />
     </>
   );
 }

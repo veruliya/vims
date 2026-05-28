@@ -11,7 +11,7 @@ import {
   Card,
 } from '@heroui/react';
 
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
 import { useSelected } from '../contexts/SelectedContext';
 
@@ -24,9 +24,13 @@ export function SelectedModal({
 }) {
   const { form } = useSelected();
 
-  const updatedQuantity = Number(
-    storeItem.balance + storeItem.received_quantity,
-  ).toFixed(2);
+  const [receivedQuantity, setReceivedQuantity] = useState<number>(
+    storeItem.received_quantity,
+  );
+
+  const updatedQuantity = Number(storeItem.balance + receivedQuantity).toFixed(
+    2,
+  );
 
   return (
     <Modal>
@@ -37,7 +41,7 @@ export function SelectedModal({
         <Pencil />
       </Button>
       <Modal.Backdrop>
-        <Modal.Container>
+        <Modal.Container placement="center">
           <Modal.Dialog className="overscroll-contain">
             <Modal.CloseTrigger /> {/* Optional: Close button */}
             <Modal.Header>
@@ -105,7 +109,7 @@ export function SelectedModal({
                   <div className="flex items-center justify-between p-3">
                     <Label className="text-muted">Received Quantity</Label>
                     <Description className="text-sm font-semibold text-success">
-                      + {storeItem.received_quantity}
+                      + {receivedQuantity}
                     </Description>
                   </div>
                   <div className="flex items-center justify-between rounded-b-2xl bg-surface-secondary p-3">
@@ -123,26 +127,15 @@ export function SelectedModal({
                       ? Number(1)
                       : Number(0.01)
                   }
-                  value={storeItem.received_quantity}
+                  value={receivedQuantity}
                   onChange={(value) =>
-                    form.setData((data) => ({
-                      ...data,
-                      storeItems: data.storeItems.map((currentStoreItem) => {
-                        if (currentStoreItem.id === storeItem.id) {
-                          return {
-                            ...currentStoreItem,
-                            received_quantity: Number.isFinite(value)
-                              ? value
-                              : 0,
-                          };
-                        }
-
-                        return currentStoreItem;
-                      }),
-                    }))
+                    setReceivedQuantity(Number.isFinite(value) ? value : 0)
                   }
+                  onFocus={(e) => {
+                    (e.currentTarget as HTMLInputElement).select();
+                  }}
                 >
-                  <Label className="text-muted pb-2">Received Quantity</Label>
+                  <Label className="pb-2 text-muted">Received Quantity</Label>
                   <NumberField.Group className="h-fit border border-border-secondary">
                     <NumberField.DecrementButton />
                     <NumberField.Input className="text-center" />
@@ -151,6 +144,35 @@ export function SelectedModal({
                 </NumberField>
               </div>
             </Modal.Body>
+            <Modal.Footer>
+              <Button
+                slot="close"
+                variant="danger"
+                onPress={() => setReceivedQuantity(storeItem.received_quantity)}
+              >
+                Cancel
+              </Button>
+              <Button
+                slot="close"
+                onPress={() => {
+                  form.setData((data) => ({
+                    ...data,
+                    storeItems: data.storeItems.map((currentStoreItem) => {
+                      if (currentStoreItem.id === storeItem.id) {
+                        return {
+                          ...currentStoreItem,
+                          received_quantity: receivedQuantity,
+                        };
+                      }
+
+                      return currentStoreItem;
+                    }),
+                  }));
+                }}
+              >
+                Confirm
+              </Button>
+            </Modal.Footer>
           </Modal.Dialog>
         </Modal.Container>
       </Modal.Backdrop>
