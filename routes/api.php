@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\StoreItemController;
 use App\Http\Controllers\Api\ReceivedReportController;
 
 Route::apiResource('store-items', StoreItemController::class);
-Route::apiResource('received-report', ReceivedReportController::class);
+Route::apiResource('received-reports', ReceivedReportController::class);
 
 Route::get('/user', function (Request $request) {
     return $request->user();
