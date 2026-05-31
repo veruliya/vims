@@ -30,7 +30,7 @@ export function StoreItemContent({ storeItem }: { storeItem: StoreItem }) {
             {storeItem.item.subcategory}
           </Description>
         </div>
-        <div className="grid grid-cols-[1fr_4rem] gap-x-1">
+        <div className="grid grid-cols-[1fr_5rem] gap-x-1">
           <div className="flex flex-col justify-between gap-1">
             <Label className="line-clamp-2">{storeItem.item.name}</Label>
             <div className="flex items-center gap-1 text-muted">
