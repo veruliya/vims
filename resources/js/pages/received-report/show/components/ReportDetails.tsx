@@ -24,8 +24,6 @@ export function ReportDetails({
         </Typography>
       </div>
 
-      <Separator />
-
       <div className="flex justify-between">
         <Typography
           type="body-sm"
@@ -40,8 +38,6 @@ export function ReportDetails({
           {receivedReport.formatted_created_at}
         </Typography>
       </div>
-
-      <Separator />
 
       <div className="flex justify-between">
         <Typography

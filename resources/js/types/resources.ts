@@ -49,3 +49,25 @@ export interface ReceivedReport {
   number: string;
   formatted_created_at: string;
 }
+
+export interface Movement {
+  id: number;
+  quantity: number;
+  type: Enum;
+  condition: Enum;
+  snapshot: Snapshot;
+}
+
+export interface Snapshot {
+  id: number;
+  store_name: string;
+  store_breadcrumbs: string[];
+  unit_short_name: string;
+  unit_full_name: string;
+  unit_data_type: string;
+  item_category: Enum;
+  item_subcategory: string;
+  item_name: string;
+  item_severity: Enum;
+  store_item_minimum_quantity: number;
+}

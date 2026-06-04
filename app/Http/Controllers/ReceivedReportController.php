@@ -196,6 +196,7 @@ class ReceivedReportController extends Controller
                 ],
             ],
             'receivedReport' => $receivedReport,
+            'movementsCount' => $receivedReport->movements()->count(),
         ];
 
         return Inertia::render('received-report/show', $props);
