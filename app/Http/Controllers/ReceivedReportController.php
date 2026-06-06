@@ -152,8 +152,10 @@ class ReceivedReportController extends Controller
 
                 Snapshot::create([
                     'movement_id' => $movement->id,
+                    'store_id' => $storeItem->store->id,
                     'store_name' => $storeItem->store->name,
                     'store_breadcrumbs' => $storeItem->store->breadcrumbs,
+                    'unit_id' => $storeItem->item->unit->id,
                     'unit_short_name' => $storeItem->item->unit->short_name,
                     'unit_full_name' => $storeItem->item->unit->full_name,
                     'unit_data_type' => $storeItem->item->unit->data_type,

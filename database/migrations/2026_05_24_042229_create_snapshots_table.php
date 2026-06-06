@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('snapshots', function (Blueprint $table) {
             $table->id();
             $table->foreignId('movement_id')->constrained('movements');
+            $table->unsignedBigInteger('store_id');
             $table->string('store_name');
             $table->json('store_breadcrumbs');
+            $table->unsignedBigInteger('unit_id');
             $table->string('unit_short_name');
             $table->string('unit_full_name');
             $table->string('unit_data_type');

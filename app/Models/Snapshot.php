@@ -12,8 +12,10 @@ use App\Enums\Severity;
 
 #[Fillable([
     'movement_id',
+    'store_id',
     'store_name',
     'store_breadcrumbs',
+    'unit_id',
     'unit_short_name',
     'unit_full_name',
     'unit_data_type',
