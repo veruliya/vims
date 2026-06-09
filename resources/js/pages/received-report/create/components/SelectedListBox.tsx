@@ -52,7 +52,7 @@ export function SelectedListBox() {
               'h-40 rounded-xl border shadow-md transition-all',
             )}
           >
-            <div className="flex h-full w-full flex-col justify-between">
+            <div className="flex h-full w-full flex-col justify-between gap-1">
               <StoreItemContent storeItem={storeItem} />
               <div className="flex justify-between">
                 <SelectedModal storeItem={storeItem} />
