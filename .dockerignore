@@ -11,10 +11,6 @@ Dockerfile
 node_modules/
 vendor/
 
-resources/js/actions/
-resources/js/routes/
-resources/js/wayfinder/
-
 storage/framework/cache
 storage/framework/sessions
 storage/framework/views
