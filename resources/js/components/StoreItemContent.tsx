@@ -8,7 +8,7 @@ import type { StoreItem } from '@/types';
 
 export function StoreItemContent({ storeItem }: { storeItem: StoreItem }) {
   return (
-    <div className="grid h-full w-full grid-cols-[1fr_5rem] px-1">
+    <div className="grid h-full w-full grid-cols-[1fr_5rem] pr-1 gap-x-2">
       <div className="flex flex-col justify-between gap-y-1">
         <div className="flex items-center gap-x-1.5">
           <Chip
