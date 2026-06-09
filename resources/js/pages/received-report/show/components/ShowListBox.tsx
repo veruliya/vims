@@ -9,55 +9,14 @@ import {
   Chip,
 } from '@heroui/react';
 
-import { useHttp } from '@inertiajs/react';
-import { useState, Fragment } from 'react';
+import { Fragment } from 'react';
+
+import { useShow } from '../contexts/ShowContext';
 
 import type { Movement } from '@/types';
 
-import type { HttpRequest, HttpResponse } from '../types';
-
-import { index } from '@/actions/App/Http/Controllers/Api/MovementController';
-
-export function ShowListBox({
-  movementableId,
-  movementType,
-}: {
-  movementableId: number;
-  movementType: string;
-}) {
-  const initialFilter = {
-    movementable_id: movementableId.toString(),
-    type: movementType,
-  };
-
-  const http = useHttp<HttpRequest>({
-    cursor: null,
-    filter: initialFilter,
-  });
-
-  const [movements, setMovements] = useState<Movement[]>([]);
-
-  const [hasMore, setHasMore] = useState(true);
-
-  function loadMore() {
-    if (http.processing || !hasMore) {
-      return;
-    }
-
-    http.get(index.url(), {
-      onSuccess: (response) => {
-        const { data, meta } = response as HttpResponse;
-
-        setMovements((prev) => [...prev, ...data]);
-
-        http.setData('cursor', meta.next_cursor);
-
-        if (!meta.next_cursor) {
-          setHasMore(false);
-        }
-      },
-    });
-  }
+export function ShowListBox() {
+  const { http, hasMore, movements, loadMore } = useShow();
 
   return (
     <ListBox
@@ -158,7 +117,7 @@ function ListBoxItemContent({ movement }: { movement: Movement }) {
             type="body"
             className="text-right text-success"
           >
-            {`+${movement.snapshot.store_item_minimum_quantity}`}
+            {`+${movement.quantity}`}
           </Typography>
           <Typography
             weight="bold"

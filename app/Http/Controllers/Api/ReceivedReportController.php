@@ -27,7 +27,8 @@ class ReceivedReportController extends Controller
                 'received_reports.*',
                 'users.name as creator_name',
             )
-            ->join('users', 'users.id', '=', 'received_reports.created_by');
+            ->join('users', 'users.id', '=', 'received_reports.created_by')
+            ->where('vessel_id', 1);
 
         $items = QueryBuilder::for($query)
             ->allowedFilters(
