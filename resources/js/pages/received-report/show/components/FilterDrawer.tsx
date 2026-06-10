@@ -70,6 +70,7 @@ export function FilterDrawer() {
       <Drawer.Backdrop>
         <Drawer.Content placement="bottom">
           <Drawer.Dialog>
+            <Drawer.Handle />
             <Drawer.CloseTrigger /> {/* Optional: Close button */}
             <Drawer.Header>
               <Drawer.Heading>Filter</Drawer.Heading>
