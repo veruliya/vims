@@ -58,7 +58,7 @@ export function AppBarNavigation() {
             {breadcrumbs.map((breadcrumb, index) => (
               <Breadcrumbs.Item
                 id={breadcrumb.url}
-                key={index}
+                key={breadcrumb.url}
               >
                 {breadcrumb.title}
               </Breadcrumbs.Item>
