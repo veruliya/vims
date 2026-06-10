@@ -1,4 +1,4 @@
-import { ChevronRight, ArrowRight, Pencil, MapPin } from '@gravity-ui/icons';
+import { ChevronRight, Pencil, MapPin } from '@gravity-ui/icons';
 
 import {
   Button,
@@ -8,7 +8,6 @@ import {
   Modal,
   NumberField,
   Separator,
-  Card,
 } from '@heroui/react';
 
 import { Fragment, useState } from 'react';
@@ -62,15 +61,7 @@ export function SelectedModal({
                 {storeItem.item.name}
               </Modal.Heading>
               <div className="flex justify-between">
-                <div className="flex gap-1">
-                  <Chip
-                    variant="soft"
-                    size="sm"
-                    color={storeItem.item.severity.chipColor}
-                    className="h-fit"
-                  >
-                    {storeItem.item.severity.label}
-                  </Chip>
+                <div className="flex items-center gap-1">
                   <Chip
                     size="sm"
                     color={storeItem.item.category.chipColor}
@@ -78,10 +69,19 @@ export function SelectedModal({
                   >
                     {storeItem.item.category.label}
                   </Chip>
+                  <span>&bull;</span>
+                  <Description className="text-right font-semibold">
+                    {storeItem.item.subcategory}
+                  </Description>
                 </div>
-                <Description className="text-right font-semibold">
-                  {storeItem.item.subcategory}
-                </Description>
+                <Chip
+                  variant="soft"
+                  size="sm"
+                  color={storeItem.item.severity.chipColor}
+                  className="h-fit"
+                >
+                  {storeItem.item.severity.label}
+                </Chip>
               </div>
               <Separator />
             </Modal.Header>
