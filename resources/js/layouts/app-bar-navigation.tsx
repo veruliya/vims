@@ -23,7 +23,7 @@ export function AppBarNavigation() {
   }
 
   return (
-    <div className="flex h-14 w-screen max-w-screen items-center gap-2 px-2">
+    <div className="flex h-14 w-screen max-w-screen sm:w-[calc(100vw-16rem)] sm:max-w-[calc(100vw-16rem)] items-center gap-2 px-2">
       {/* Back Button */}
       <Button
         isIconOnly
