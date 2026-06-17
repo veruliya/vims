@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 use App\Http\Resources\UserResource;
 
-class ReceivedReportResource extends JsonResource
+class TransactionReportResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

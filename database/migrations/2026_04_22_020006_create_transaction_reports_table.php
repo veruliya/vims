@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('vessel_id')->constrained('vessels');
             $table->foreignId('created_by')->constrained('users');
             $table->string('number');
-            $table->string('transaction_type');
+            $table->string('transaction_report_type');
             $table->timestamps();
         });
     }

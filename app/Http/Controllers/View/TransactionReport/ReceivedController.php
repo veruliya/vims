@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\View\TransactionReport;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\RedirectResponse;
 
@@ -11,13 +13,13 @@ use Illuminate\Support\Facades\DB;
 use App\Enums\Severity;
 use App\Enums\Category;
 
-use App\Http\Requests\CreateReceivedReportRequest;
+use App\Http\Requests\TransactionReport\CreateReceivedRequest;
 
 use App\Models\Item;
 use App\Models\Unit;
 use App\Models\Store;
 use App\Models\StoreItem;
-use App\Models\ReceivedReport;
+use App\Models\TransactionReport;
 use App\Models\Movement;
 use App\Models\User;
 use App\Models\Snapshot;
@@ -27,7 +29,7 @@ use App\Enums\Condition;
 
 use App\Support\RomanMonth;
 
-class ReceivedReportController extends Controller
+class ReceivedController extends Controller
 {
     public function index()
     {
@@ -39,12 +41,12 @@ class ReceivedReportController extends Controller
                     'title' => 'Home',
                 ],
                 [
-                    'url' => '#/reporting',
-                    'title' => 'Reporting',
+                    'url' => '#/transaction-report',
+                    'title' => 'Transaction Report',
                 ],
                 [
-                    'url' => '/reporting/received-reports',
-                    'title' => 'Received Reports',
+                    'url' => '/transaction-report/received',
+                    'title' => 'Received',
                 ],
             ],
         ];
@@ -55,22 +57,22 @@ class ReceivedReportController extends Controller
     public function create()
     {
         $props = [
-            'backUrl' => '/reporting/received-reports',
+            'backUrl' => '/transaction-report/received',
             'breadcrumbs' => [
                 [
                     'url' => '/',
                     'title' => 'Home',
                 ],
                 [
-                    'url' => '#/reporting',
-                    'title' => 'Reporting',
+                    'url' => '#/transaction-report',
+                    'title' => 'Transaction Report',
                 ],
                 [
-                    'url' => '/reporting/received-reports',
-                    'title' => 'Received Reports',
+                    'url' => '/transaction-report/received',
+                    'title' => 'Received',
                 ],
                 [
-                    'url' => '/reporting/received-reports/create',
+                    'url' => '/transaction-report/received/create',
                     'title' => 'Create',
                 ],
             ],
@@ -107,7 +109,7 @@ class ReceivedReportController extends Controller
         return Inertia::render('received-report/create', $props);
     }
 
-    public function store(CreateReceivedReportRequest $request): RedirectResponse
+    public function store(CreateReceivedRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
@@ -124,7 +126,7 @@ class ReceivedReportController extends Controller
         DB::transaction(function () use ($validatedStoreItems, $storeItems): void {
             $now = now();
 
-            $receivedReportMaxId = ReceivedReport::max('id');
+            $receivedReportMaxId = TransactionReport::max('id');
 
             $number = str_pad($receivedReportMaxId + 1, 3, '0', STR_PAD_LEFT)
                 . '/REC/'
@@ -132,7 +134,7 @@ class ReceivedReportController extends Controller
                 . '/'
                 . $now->year;
 
-            $receivedReport = ReceivedReport::create([
+            $receivedReport = TransactionReport::create([
                 'vessel_id' => 1,
                 'number' => $number,
                 'created_by' => User::first()->id,
@@ -146,7 +148,7 @@ class ReceivedReportController extends Controller
                     'quantity' => (float) $validatedStoreItem['received_quantity'],
                     'type' => MovementType::RECEIVED,
                     'condition' => Condition::NORMAL,
-                    'movementable_type' => ReceivedReport::class,
+                    'movementable_type' => TransactionReport::class,
                     'movementable_id' => $receivedReport->id,
                 ]);
 
@@ -173,27 +175,27 @@ class ReceivedReportController extends Controller
 
     public function show(string $id)
     {
-        $receivedReport = ReceivedReport::with(['createdBy'])
+        $receivedReport = TransactionReport::with(['createdBy'])
             ->where('id', $id)
             ->first();
 
         $props = [
-            'backUrl' => '/reporting/received-reports',
+            'backUrl' => '/transaction-report/received',
             'breadcrumbs' => [
                 [
                     'url' => '/',
                     'title' => 'Home',
                 ],
                 [
-                    'url' => '#/reporting',
-                    'title' => 'Reporting',
+                    'url' => '#/transaction-report',
+                    'title' => 'Transaction Report',
                 ],
                 [
-                    'url' => '/reporting/received-reports',
-                    'title' => 'Received Reports',
+                    'url' => '/transaction-report/received',
+                    'title' => 'Received',
                 ],
                 [
-                    'url' => '/reporting/received-reports/show' . "/{$receivedReport->id}",
+                    'url' => '/transaction-report/received/show' . "/{$receivedReport->id}",
                     'title' => $receivedReport->number,
                 ],
             ],

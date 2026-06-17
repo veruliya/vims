@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Model;
-use App\Enums\TransactionType;
+use App\Enums\TransactionReportType;
 
 use Carbon\Carbon;
 
@@ -18,17 +18,17 @@ use Carbon\Carbon;
     'vessel_id',
     'created_by',
     'number',
-    'transaction_type',
+    'transaction_report_type',
 ])]
 
 #[Appends(['formatted_created_at'])]
 
-class ReceivedReport extends Model
+class TransactionReport extends Model
 {
     protected function casts(): array
     {
         return [
-            'transaction_type' => TransactionType::class,
+            'transaction_report_type' => TransactionReportType::class,
         ];
     }
 

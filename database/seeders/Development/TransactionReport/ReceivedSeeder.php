@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Development;
+namespace Database\Seeders\Development\TransactionReport;
 
 use Illuminate\Database\Seeder;
 
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Vessel;
 use App\Models\StoreItem;
-use App\Models\ReceivedReport;
+use App\Models\TransactionReport;
 use App\Models\Movement;
 use App\Models\Snapshot;
 
@@ -19,7 +19,7 @@ use App\Enums\Condition;
 use App\Support\Randomizer;
 use App\Support\RomanMonth;
 
-class ReceivedReportSeeder extends Seeder
+class ReceivedSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -34,11 +34,11 @@ class ReceivedReportSeeder extends Seeder
             DB::transaction(function () use ($vessels, $now) {
 
                 foreach ($vessels as $vessel) {
-                    $receivedReportMaxId = ReceivedReport::max('id');
+                    $receivedReportMaxId = TransactionReport::max('id');
 
                     $number = str_pad($receivedReportMaxId + 1, 3, '0', STR_PAD_LEFT) . '/' . 'REC' . '/' . RomanMonth::from($now->month) . '/' .  $now->year;
 
-                    $receivedReport = ReceivedReport::create([
+                    $receivedReport = TransactionReport::create([
                         'vessel_id' => $vessel->id,
                         'number' => $number,
                         'created_by' => User::first()->id,
@@ -64,7 +64,7 @@ class ReceivedReportSeeder extends Seeder
                             'quantity' => Randomizer::randomQuantity($storeItem->item->unit->data_type),
                             'type' => MovementType::RECEIVED,
                             'condition' => Condition::NORMAL,
-                            'movementable_type' => ReceivedReport::class,
+                            'movementable_type' => TransactionReport::class,
                             'movementable_id' => $receivedReport->id,
                         ]);
 

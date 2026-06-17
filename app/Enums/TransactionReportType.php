@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum TransactionType: string
+enum TransactionReportType: string
 {
     case RECEIVED = 'RECEIVED';
     case USED = 'USED';

@@ -11,23 +11,23 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
-use App\Models\ReceivedReport;
-use App\Http\Resources\ReceivedReportResource;
+use App\Models\TransactionReport;
+use App\Http\Resources\TransactionReportResource;
 
 use App\Sorts\TieBreakerSort;
 
-class ReceivedReportController extends Controller
+class TransactionReportController extends Controller
 {
     public function index(Request $request)
     {
-        $query = ReceivedReport::with([
+        $query = TransactionReport::with([
             'createdBy',
         ])
             ->select(
-                'received_reports.*',
+                'transaction_reports.*',
                 'users.name as creator_name',
             )
-            ->join('users', 'users.id', '=', 'received_reports.created_by')
+            ->join('users', 'users.id', '=', 'transaction_reports.created_by')
             ->where('vessel_id', 1);
 
         $items = QueryBuilder::for($query)
@@ -36,7 +36,7 @@ class ReceivedReportController extends Controller
                 AllowedFilter::exact('number', 'id'),
                 AllowedFilter::callback('from', function ($query, $value) {
                     $query->where(
-                        'received_reports.created_at',
+                        'transaction_reports.created_at',
                         '>=',
                         Carbon::parse($value)->startOfDay()
                     );
@@ -44,7 +44,7 @@ class ReceivedReportController extends Controller
 
                 AllowedFilter::callback('to', function ($query, $value) {
                     $query->where(
-                        'received_reports.created_at',
+                        'transaction_reports.created_at',
                         '<=',
                         Carbon::parse($value)->endOfDay()
                     );
@@ -53,11 +53,11 @@ class ReceivedReportController extends Controller
             ->allowedSorts(
                 'id',
                 'created_at',
-                AllowedSort::custom('name', new TieBreakerSort('received_reports.id'), 'creator_name'),
+                AllowedSort::custom('name', new TieBreakerSort('transaction_reports.id'), 'creator_name'),
             )
             ->defaultSort('-created_at')
             ->cursorPaginate(20);
 
-        return ReceivedReportResource::collection($items);
+        return TransactionReportResource::collection($items);
     }
 }

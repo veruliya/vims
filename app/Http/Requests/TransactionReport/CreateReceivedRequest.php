@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\TransactionReport;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 
-class CreateReceivedReportRequest extends FormRequest
+class CreateReceivedRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

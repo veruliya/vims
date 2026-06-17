@@ -18,7 +18,7 @@ class DevelopmentSeeder extends Seeder
             StoreSeeder::class,
             ItemSeeder::class,
             StoreItemSeeder::class,
-            ReceivedReportSeeder::class,
+            TransactionReport\ReceivedSeeder::class,
         ]);
     }
 }
