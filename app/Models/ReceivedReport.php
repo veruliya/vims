@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\TransactionType;
 
 use Carbon\Carbon;
 
@@ -24,6 +25,13 @@ use Carbon\Carbon;
 
 class ReceivedReport extends Model
 {
+    protected function casts(): array
+    {
+        return [
+            'transaction_type' => TransactionType::class,
+        ];
+    }
+
     protected function formattedCreatedAt(): Attribute
     {
         return Attribute::make(
