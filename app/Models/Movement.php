@@ -13,8 +13,9 @@ use Illuminate\Database\Eloquent\Model;
 
 #[Fillable([
     'store_item_id',
+    'snapshot_id',
     'quantity',
-    'type',
+    'movement_type',
     'condition',
     'movementable_type',
     'movementable_id',
@@ -26,7 +27,7 @@ class Movement extends Model
     {
         return [
             'quantity'   => 'float',
-            'type' => MovementType::class,
+            'movement_type' => MovementType::class,
             'condition' => Condition::class,
         ];
     }
@@ -38,7 +39,7 @@ class Movement extends Model
 
     public function snapshot()
     {
-        return $this->hasOne(Snapshot::class);
+        return $this->belongsTo(Snapshot::class, 'snapshot_id', 'id');
     }
 
     public function movementable(): MorphTo

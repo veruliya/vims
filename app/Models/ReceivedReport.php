@@ -11,12 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon;
 
-#[Table('received_reports')]
+#[Table('transaction_reports')]
 
 #[Fillable([
     'vessel_id',
-    'number',
     'created_by',
+    'number',
+    'transaction_type',
 ])]
 
 #[Appends(['formatted_created_at'])]

@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('movements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('store_item_id')->constrained('store_items');
+            $table->foreignId('snapshot_id')->constrained('snapshots');
             $table->decimal('quantity');
-            $table->string('type');
+            $table->string('movement_type');
             $table->string('condition');
             $table->morphs('movementable');
             $table->timestamps();

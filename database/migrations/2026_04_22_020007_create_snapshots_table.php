@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('snapshots', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('movement_id')->constrained('movements');
+            $table->unsignedBigInteger('version');
+            $table->unsignedBigInteger('store_item_id');
+            $table->decimal('store_item_minimum_quantity');
             $table->unsignedBigInteger('store_id');
             $table->string('store_name');
             $table->json('store_breadcrumbs');
@@ -25,7 +27,6 @@ return new class extends Migration
             $table->string('item_subcategory');
             $table->string('item_name');
             $table->string('item_severity');
-            $table->decimal('store_item_minimum_quantity');
             $table->timestamps();
         });
     }

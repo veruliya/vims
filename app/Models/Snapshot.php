@@ -11,7 +11,9 @@ use App\Enums\Severity;
 #[Table('snapshots')]
 
 #[Fillable([
-    'movement_id',
+    'version',
+    'store_item_id',
+    'store_item_minimum_quantity',
     'store_id',
     'store_name',
     'store_breadcrumbs',
@@ -23,7 +25,6 @@ use App\Enums\Severity;
     'item_subcategory',
     'item_name',
     'item_severity',
-    'store_item_minimum_quantity',
 ])]
 
 class Snapshot extends Model
@@ -37,6 +38,6 @@ class Snapshot extends Model
 
     public function movement()
     {
-        return $this->belongsTo(Movement::class, 'movement_id', 'id');
+        return $this->hasMany(Movement::class);
     }
 }
