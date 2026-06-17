@@ -19,9 +19,9 @@ class MovementResource extends JsonResource
         return [
             'id' => $this->id,
             'quantity' => $this->quantity,
-            'type' => [
-                'value' => $this->type->value,
-                'label' => $this->type->label(),
+            'movement_type' => [
+                'value' => $this->movement_type->value,
+                'label' => $this->movement_type->label(),
             ],
             'condition' => [
                 'value' => $this->condition->value,

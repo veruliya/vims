@@ -21,6 +21,10 @@ class ReceivedReportResource extends JsonResource
             'number' => $this->number,
             'created_by' => new UserResource($this->whenLoaded('createdBy')),
             'formatted_created_at' => $this->formatted_created_at,
+            'transaction_type' => [
+                'value' => $this->transaction_type->value,
+                'label' => $this->transaction_type->label(),
+            ],
         ];
     }
 }

@@ -16,6 +16,9 @@ class SnapshotResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'version' => $this->version,
+            'store_item_id' => $this->store_item_id,
+            'store_item_minimum_quantity' => $this->store_item_minimum_quantity,
             'store_name' => $this->store_name,
             'store_breadcrumbs' => $this->store_breadcrumbs,
             'unit_short_name' => $this->unit_short_name,
@@ -33,7 +36,6 @@ class SnapshotResource extends JsonResource
                 'label' => $this->item_severity->label(),
                 'chipColor' => $this->item_severity->chipColor(),
             ],
-            'store_item_minimum_quantity' => $this->store_item_minimum_quantity,
         ];
     }
 }
