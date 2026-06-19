@@ -18,6 +18,7 @@ type DateRange = {
 };
 
 export interface Filter {
+  type: string,
   name: string;
   number: string;
   from: string;

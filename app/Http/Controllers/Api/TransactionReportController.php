@@ -32,6 +32,7 @@ class TransactionReportController extends Controller
 
         $items = QueryBuilder::for($query)
             ->allowedFilters(
+                AllowedFilter::exact('type', 'transaction_report_type'),
                 AllowedFilter::partial('name', 'createdBy.name'),
                 AllowedFilter::exact('number', 'id'),
                 AllowedFilter::callback('from', function ($query, $value) {

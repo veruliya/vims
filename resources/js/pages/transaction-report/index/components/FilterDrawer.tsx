@@ -12,6 +12,7 @@ import { useIndex } from '../contexts/IndexContext';
 import { Funnel } from '@gravity-ui/icons';
 
 export const initialFilter = {
+  type: 'RECEIVED',
   name: '',
   number: '',
   from: '',
