@@ -14,6 +14,7 @@ use App\Models\Movement;
 use App\Models\Snapshot;
 
 use App\Enums\MovementType;
+use App\Enums\TransactionReportType;
 use App\Enums\Condition;
 
 use App\Support\Randomizer;
@@ -34,14 +35,15 @@ class ReceivedSeeder extends Seeder
             DB::transaction(function () use ($vessels, $now) {
 
                 foreach ($vessels as $vessel) {
-                    $receivedReportMaxId = TransactionReport::max('id');
+                    $receivedMaxId = TransactionReport::where('transaction_report_type', TransactionReportType::RECEIVED)->max('id');
 
-                    $number = str_pad($receivedReportMaxId + 1, 3, '0', STR_PAD_LEFT) . '/' . 'REC' . '/' . RomanMonth::from($now->month) . '/' .  $now->year;
+                    $number = str_pad($receivedMaxId + 1, 3, '0', STR_PAD_LEFT) . '/' . 'REC' . '/' . RomanMonth::from($now->month) . '/' .  $now->year;
 
-                    $receivedReport = TransactionReport::create([
+                    $received = TransactionReport::create([
                         'vessel_id' => $vessel->id,
                         'number' => $number,
                         'created_by' => User::first()->id,
+                        'transaction_report_type' => TransactionReportType::RECEIVED,
                     ]);
 
                     $storeItems = StoreItem::with([
@@ -59,17 +61,10 @@ class ReceivedSeeder extends Seeder
 
                     foreach ($randomStoreItems as $storeItem) {
 
-                        $movement = Movement::create([
+                        $snapshot = Snapshot::create([
+                            'version' => 1,
                             'store_item_id' => $storeItem->id,
-                            'quantity' => Randomizer::randomQuantity($storeItem->item->unit->data_type),
-                            'type' => MovementType::RECEIVED,
-                            'condition' => Condition::NORMAL,
-                            'movementable_type' => TransactionReport::class,
-                            'movementable_id' => $receivedReport->id,
-                        ]);
-
-                        Snapshot::create([
-                            'movement_id' => $movement->id,
+                            'store_item_minimum_quantity' => $storeItem->minimum_quantity,
                             'store_id' => $storeItem->store->id,
                             'store_name' => $storeItem->store->name,
                             'store_breadcrumbs' => $storeItem->store->breadcrumbs,
@@ -81,8 +76,18 @@ class ReceivedSeeder extends Seeder
                             'item_subcategory' => $storeItem->item->subcategory,
                             'item_name' => $storeItem->item->name,
                             'item_severity' => $storeItem->item->severity,
-                            'store_item_minimum_quantity' => $storeItem->minimum_quantity,
                         ]);
+
+                        Movement::create([
+                            'snapshot_id' => $snapshot->id,
+                            'store_item_id' => $storeItem->id,
+                            'quantity' => Randomizer::randomQuantity($storeItem->item->unit->data_type),
+                            'movement_type' => MovementType::RECEIVED,
+                            'condition' => Condition::NORMAL,
+                            'movementable_type' => TransactionReport::class,
+                            'movementable_id' => $received->id,
+                        ]);
+
                     }
                 }
             });
