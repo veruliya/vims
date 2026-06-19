@@ -8,7 +8,7 @@ import { useSelected } from '../contexts/SelectedContext';
 
 import { SelectedListBox } from './SelectedListBox';
 
-import { store } from "@/actions/App/Http/Controllers/ReceivedReportController";
+import { store } from "@/actions/App/Http/Controllers/View/TransactionReport/ReceivedController";
 
 export function SelectedDrawer() {
   const { form } = useSelected();

@@ -4,8 +4,8 @@ import { Button, Virtualizer, ListLayout } from '@heroui/react';
 import { router, useHttp } from '@inertiajs/react';
 import { useState } from 'react';
 
-import { index } from '@/actions/App/Http/Controllers/Api/ReceivedReportController';
-import { create } from '@/actions/App/Http/Controllers/ReceivedReportController';
+import { index } from "@/actions/App/Http/Controllers/Api/TransactionReportController";
+import { create } from "@/actions/App/Http/Controllers/View/TransactionReport/ReceivedController";
 
 import { IndexListBox } from './index/components/IndexListBox';
 import { IndexContext } from './index/contexts/IndexContext';

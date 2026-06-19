@@ -15,7 +15,7 @@ import {
 
 import { router } from '@inertiajs/react';
 
-import { show } from '@/actions/App/Http/Controllers/ReceivedReportController';
+import { show } from "@/actions/App/Http/Controllers/View/TransactionReport/ReceivedController";
 
 import { ReceivedReport } from '@/types';
 

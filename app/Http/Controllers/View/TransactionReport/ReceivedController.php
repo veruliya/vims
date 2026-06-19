@@ -51,7 +51,7 @@ class ReceivedController extends Controller
             ],
         ];
 
-        return Inertia::render('received-report/index', $props);
+        return Inertia::render('transaction-report/index', $props);
     }
 
     public function create()
@@ -106,7 +106,7 @@ class ReceivedController extends Controller
             ],
         ];
 
-        return Inertia::render('received-report/create', $props);
+        return Inertia::render('transaction-report/create', $props);
     }
 
     public function store(CreateReceivedRequest $request): RedirectResponse
@@ -231,6 +231,6 @@ class ReceivedController extends Controller
             ],
         ];
 
-        return Inertia::render('received-report/show', $props);
+        return Inertia::render('transaction-report/show', $props);
     }
 }
