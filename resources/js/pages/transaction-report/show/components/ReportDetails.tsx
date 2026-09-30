@@ -1,11 +1,11 @@
 import { Separator, Typography } from '@heroui/react';
 
-import { ReceivedReport } from '@/types';
+import { TransactionReport } from '@/types';
 
 export function ReportDetails({
   receivedReport,
 }: {
-  receivedReport: ReceivedReport;
+  receivedReport: TransactionReport;
 }) {
   return (
     <>

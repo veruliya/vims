@@ -17,7 +17,7 @@ import { router } from '@inertiajs/react';
 
 import { show } from "@/actions/App/Http/Controllers/View/TransactionReport/ReceivedController";
 
-import { ReceivedReport } from '@/types';
+import { TransactionReport } from '@/types';
 
 import { useIndex } from '../contexts/IndexContext';
 
@@ -69,7 +69,7 @@ export function IndexListBox() {
 function ListBoxItemContent({
   receivedReport,
 }: {
-  receivedReport: ReceivedReport;
+  receivedReport: TransactionReport;
 }) {
   return (
     <>

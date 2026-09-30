@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Table;
-use Illuminate\Database\Eloquent\Model;
 use App\Enums\Category;
 use App\Enums\Severity;
+use Database\Factories\ItemFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 #[Table('items')]
 
@@ -20,6 +22,9 @@ use App\Enums\Severity;
 
 class Item extends Model
 {
+    /** @use HasFactory<ItemFactory> */
+    use HasFactory;
+
     protected $casts = [
         'category' => Category::class,
         'severity' => Severity::class,

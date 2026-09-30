@@ -1,4 +1,4 @@
-import { BookOpen, FileText } from '@gravity-ui/icons';
+import { BookOpen, ArrowRightArrowLeft } from '@gravity-ui/icons';
 import { Link, usePage } from '@inertiajs/react';
 
 import { welcome } from '@/routes';
@@ -34,7 +34,7 @@ const navigationSections: NavigationSection[] = [
   },
   {
     id: 'transactionReport',
-    icon: FileText,
+    icon: ArrowRightArrowLeft,
     label: 'Transaction Report',
     links: [
       {

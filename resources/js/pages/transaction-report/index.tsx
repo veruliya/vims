@@ -15,7 +15,7 @@ import { FilterDrawer } from './index/components/FilterDrawer';
 import { StickyBar } from '@/components/StickyBar';
 
 import type { HttpRequest, HttpResponse } from './index/types';
-import type { ReceivedReport } from '@/types';
+import type { TransactionReport } from '@/types';
 
 import { initialFilter } from './index/components/FilterDrawer';
 
@@ -26,7 +26,7 @@ export default function Index() {
     sort: '-created_at',
   });
 
-  const [receivedReports, setReceivedReports] = useState<ReceivedReport[]>([]);
+  const [receivedReports, setReceivedReports] = useState<TransactionReport[]>([]);
 
   const [hasMore, setHasMore] = useState(true);
 

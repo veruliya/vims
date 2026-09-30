@@ -47,7 +47,7 @@ export function SelectedListBox() {
             id={storeItem.id}
             textValue={storeItem.item.name}
             className={cn(
-              storeItem.received_quantity !== 0 &&
+              storeItem.received_quantity > 0 &&
                 'border-success bg-success/10',
               'h-40 rounded-xl border shadow-md transition-all',
             )}

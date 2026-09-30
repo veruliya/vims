@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Enums\Condition;
 use App\Enums\MovementType;
+use Database\Factories\MovementFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Table;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 #[Table('movements')]
 
@@ -23,10 +25,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movement extends Model
 {
+    /** @use HasFactory<MovementFactory> */
+    use HasFactory;
+
     protected function casts(): array
     {
         return [
-            'quantity'   => 'float',
+            'quantity' => 'float',
             'movement_type' => MovementType::class,
             'condition' => Condition::class,
         ];

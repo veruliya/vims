@@ -172,12 +172,12 @@ export function Filters({
             }))
           }
         >
-          <Label>Report Number</Label>
+          <Label>Report ID</Label>
           <SearchField.Group>
             <SearchField.SearchIcon />
             <SearchField.Input
               className="text-sm"
-              placeholder="Filter by Report Number"
+              placeholder="Filter by Report ID"
             />
             <SearchField.ClearButton />
           </SearchField.Group>

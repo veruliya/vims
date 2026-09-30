@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Database\Factories\StoreFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 #[Table('stores')]
@@ -17,6 +19,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Store extends Model
 {
+    /** @use HasFactory<StoreFactory> */
+    use HasFactory;
+
     protected function casts(): array
     {
         return [
@@ -28,7 +33,7 @@ class Store extends Model
     {
         return $this->belongsTo(Vessel::class, 'vessel_id', 'id');
     }
-    
+
     public function storeItems()
     {
         return $this->hasMany(StoreItem::class);

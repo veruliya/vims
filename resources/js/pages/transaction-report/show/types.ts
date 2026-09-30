@@ -1,10 +1,10 @@
-import { ReceivedReport, Movement, Enum } from '@/types';
+import { TransactionReport, Movement, Enum } from '@/types';
 import { StoreTree } from '../create/types';
 import type { Key } from '@heroui/react';
 
 export interface PageProps {
   [key: string]: unknown;
-  receivedReport: ReceivedReport;
+  receivedReport: TransactionReport;
   movementsCount: number;
   filterOptions: {
     categories: Enum[];

@@ -4,7 +4,6 @@ namespace App\Http\Requests\TransactionReport;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Validator;
 
 class CreateReceivedRequest extends FormRequest
 {
@@ -25,8 +24,8 @@ class CreateReceivedRequest extends FormRequest
     {
         return [
             'storeItems' => ['required', 'array', 'list', 'min:1'],
-            'storeItems.*.id' => ['required', 'integer', 'exists:store_items,id'],
-            'storeItems.*.received_quantity' => ['required', 'numeric', 'not_in:0'],
+            'storeItems.*.id' => ['required', 'integer', 'distinct', 'exists:store_items,id'],
+            'storeItems.*.received_quantity' => ['required', 'numeric', 'gt:0'],
         ];
     }
 
@@ -42,10 +41,11 @@ class CreateReceivedRequest extends FormRequest
             'storeItems.min' => 'Select at least one item.',
             'storeItems.*.id.required' => 'Each selected item must have an ID.',
             'storeItems.*.id.integer' => 'Each selected item ID must be an integer.',
+            'storeItems.*.id.distinct' => 'Each selected item can only appear once.',
             'storeItems.*.id.exists' => 'One or more selected items are invalid.',
             'storeItems.*.received_quantity.required' => 'Each selected item must have a received quantity.',
             'storeItems.*.received_quantity.numeric' => 'Each received quantity must be a number.',
-            'storeItems.*.received_quantity.not_in' => 'Received quantity cannot be 0.',
+            'storeItems.*.received_quantity.gt' => 'Received quantity must be greater than 0.',
         ];
     }
 }

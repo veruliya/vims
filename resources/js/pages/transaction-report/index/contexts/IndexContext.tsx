@@ -1,13 +1,13 @@
 import type { useHttp } from '@inertiajs/react';
 import { useContext, createContext } from 'react';
 
-import type { ReceivedReport } from '@/types';
+import type { TransactionReport } from '@/types';
 import type { HttpRequest } from '../types';
 
 interface IndexContext {
-  receivedReports: ReceivedReport[];
+  receivedReports: TransactionReport[];
   setReceivedReports: (
-    value: ReceivedReport[] | ((prev: ReceivedReport[]) => ReceivedReport[]),
+    value: TransactionReport[] | ((prev: TransactionReport[]) => TransactionReport[]),
   ) => void;
   hasMore: boolean;
   setHasMore: (value: boolean | ((prev: boolean) => boolean)) => void;

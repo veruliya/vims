@@ -43,23 +43,26 @@ export interface Enum {
   chipColor?: ChipVariants['color'];
 }
 
-export interface ReceivedReport {
+export interface TransactionReport {
   id: number;
   created_by: User;
   number: string;
   formatted_created_at: string;
+  transaction_report_type: Enum;
 }
 
 export interface Movement {
   id: number;
   quantity: number;
-  type: Enum;
+  movement_type: Enum;
   condition: Enum;
   snapshot: Snapshot;
 }
 
 export interface Snapshot {
   id: number;
+  version?: number;
+  store_item_id?: number;
   store_name: string;
   store_breadcrumbs: string[];
   unit_short_name: string;

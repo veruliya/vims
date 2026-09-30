@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Database\Factories\StoreItemFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 #[Table('store_items')]
@@ -16,9 +18,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class StoreItem extends Model
 {
+    /** @use HasFactory<StoreItemFactory> */
+    use HasFactory;
+
     protected $casts = [
-        'minimum_quantity'   => 'float',
-        'balance'   => 'float',
+        'minimum_quantity' => 'float',
+        'balance' => 'float',
     ];
 
     public function item()
@@ -36,8 +41,8 @@ class StoreItem extends Model
         return $this->hasMany(Movement::class);
     }
 
-    public function snapshot()
+    public function snapshots()
     {
-        return $this->hasOne(Snapshot::class);
+        return $this->hasMany(Snapshot::class);
     }
 }

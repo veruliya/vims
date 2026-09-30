@@ -5,11 +5,11 @@ import { useIndex } from '../contexts/IndexContext';
 const options = [
   {
     value: 'id',
-    label: 'Lowest Report Number',
+    label: 'Lowest Report ID',
   },
   {
     value: '-id',
-    label: 'Highest Report Number',
+    label: 'Highest Report ID',
   },
   {
     value: 'created_at',

@@ -1,4 +1,4 @@
-import { ReceivedReport } from '@/types';
+import { TransactionReport } from '@/types';
 import { DateValue } from '@heroui/react';
 
 export interface HttpRequest {
@@ -8,7 +8,7 @@ export interface HttpRequest {
 }
 
 export interface HttpResponse {
-  data: ReceivedReport[];
+  data: TransactionReport[];
   meta: { next_cursor: string | null };
 }
 

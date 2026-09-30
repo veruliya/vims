@@ -2,32 +2,25 @@
 
 namespace App\Http\Controllers\View\TransactionReport;
 
-use App\Http\Controllers\Controller;
-
-use Illuminate\Http\RedirectResponse;
-
-use Inertia\Inertia;
-
-use Illuminate\Support\Facades\DB;
-
-use App\Enums\Severity;
 use App\Enums\Category;
-
+use App\Enums\Condition;
+use App\Enums\MovementType;
+use App\Enums\Severity;
+use App\Enums\TransactionReportType;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\TransactionReport\CreateReceivedRequest;
-
+use App\Http\Resources\TransactionReportResource;
 use App\Models\Item;
-use App\Models\Unit;
+use App\Models\Movement;
+use App\Models\Snapshot;
 use App\Models\Store;
 use App\Models\StoreItem;
 use App\Models\TransactionReport;
-use App\Models\Movement;
+use App\Models\Unit;
 use App\Models\User;
-use App\Models\Snapshot;
-
-use App\Enums\MovementType;
-use App\Enums\Condition;
-
-use App\Support\RomanMonth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class ReceivedController extends Controller
 {
@@ -124,60 +117,50 @@ class ReceivedController extends Controller
             ->keyBy('id');
 
         DB::transaction(function () use ($validatedStoreItems, $storeItems): void {
-            $now = now();
-
-            $receivedReportMaxId = TransactionReport::max('id');
-
-            $number = str_pad($receivedReportMaxId + 1, 3, '0', STR_PAD_LEFT)
-                . '/REC/'
-                . RomanMonth::from($now->month)
-                . '/'
-                . $now->year;
+            StoreItem::whereIn('id', $storeItems->keys())->lockForUpdate()->get();
 
             $receivedReport = TransactionReport::create([
                 'vessel_id' => 1,
-                'number' => $number,
+                'number' => TransactionReport::nextNumber(TransactionReportType::RECEIVED),
                 'created_by' => User::first()->id,
+                'transaction_report_type' => TransactionReportType::RECEIVED,
             ]);
+
+            $latestByStoreItemId = Snapshot::query()
+                ->whereIn('store_item_id', $storeItems->keys())
+                ->orderByDesc('version')
+                ->get()
+                ->unique('store_item_id')
+                ->keyBy('store_item_id');
 
             foreach ($validatedStoreItems as $validatedStoreItem) {
                 $storeItem = $storeItems->get($validatedStoreItem['id']);
 
-                $movement = Movement::create([
+                $snapshot = Snapshot::firstOrCreateVersion(
+                    $storeItem,
+                    $latestByStoreItemId->get($storeItem->id),
+                );
+
+                $latestByStoreItemId->put($storeItem->id, $snapshot);
+
+                Movement::create([
+                    'snapshot_id' => $snapshot->id,
                     'store_item_id' => $storeItem->id,
                     'quantity' => (float) $validatedStoreItem['received_quantity'],
-                    'type' => MovementType::RECEIVED,
+                    'movement_type' => MovementType::RECEIVED,
                     'condition' => Condition::NORMAL,
                     'movementable_type' => TransactionReport::class,
                     'movementable_id' => $receivedReport->id,
                 ]);
-
-                Snapshot::create([
-                    'movement_id' => $movement->id,
-                    'store_id' => $storeItem->store->id,
-                    'store_name' => $storeItem->store->name,
-                    'store_breadcrumbs' => $storeItem->store->breadcrumbs,
-                    'unit_id' => $storeItem->item->unit->id,
-                    'unit_short_name' => $storeItem->item->unit->short_name,
-                    'unit_full_name' => $storeItem->item->unit->full_name,
-                    'unit_data_type' => $storeItem->item->unit->data_type,
-                    'item_category' => $storeItem->item->category,
-                    'item_subcategory' => $storeItem->item->subcategory,
-                    'item_name' => $storeItem->item->name,
-                    'item_severity' => $storeItem->item->severity,
-                    'store_item_minimum_quantity' => $storeItem->minimum_quantity,
-                ]);
             }
         });
 
-        return to_route('report.received.index');
+        return to_route('transaction-report.index');
     }
 
     public function show(string $id)
     {
-        $receivedReport = TransactionReport::with(['createdBy'])
-            ->where('id', $id)
-            ->first();
+        $receivedReport = TransactionReport::with(['createdBy'])->findOrFail($id);
 
         $props = [
             'backUrl' => '/transaction-report/received',
@@ -195,11 +178,11 @@ class ReceivedController extends Controller
                     'title' => 'Received',
                 ],
                 [
-                    'url' => '/transaction-report/received/show' . "/{$receivedReport->id}",
+                    'url' => '/transaction-report/received/show'."/{$receivedReport->id}",
                     'title' => $receivedReport->number,
                 ],
             ],
-            'receivedReport' => $receivedReport,
+            'receivedReport' => (new TransactionReportResource($receivedReport))->resolve(),
             'movementsCount' => $receivedReport->movements()->count(),
             'filterOptions' => [
                 'categories' => Category::options(),

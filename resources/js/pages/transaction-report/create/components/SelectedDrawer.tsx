@@ -19,7 +19,7 @@ export function SelectedDrawer() {
   const isAllQuantitiesFilled = useMemo(() => {
     return (
       form.data.storeItems.length !== 0 &&
-      form.data.storeItems.every((item) => item.received_quantity !== 0)
+      form.data.storeItems.every((item) => item.received_quantity > 0)
     );
   }, [form.data.storeItems]);
 
@@ -130,7 +130,28 @@ export function SelectedDrawer() {
               </Button>
               <Button
                 slot="close"
-                onPress={() => form.submit(store())}
+                onPress={() => {
+                  const selectedStoreItems = form.data.storeItems;
+
+                  form
+                    .transform(() => ({
+                      storeItems: selectedStoreItems.map(
+                        ({ id, received_quantity }) => ({
+                          id,
+                          received_quantity,
+                        }),
+                      ),
+                    }))
+                    .submit(store(), {
+                      onError: () => {
+                        form.setData('storeItems', selectedStoreItems);
+                        form.transform((data) => data);
+                      },
+                      onFinish: () => {
+                        form.transform((data) => data);
+                      },
+                    });
+                }}
               >
                 Create Report
               </Button>

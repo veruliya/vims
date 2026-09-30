@@ -2,6 +2,13 @@
 
 namespace App\Enums;
 
+/**
+ * Movement quantity is a signed ledger amount.
+ *
+ * RECEIVED stores positive quantities. Future depleting types (USED, and
+ * similarly TRANSFER/ASSESSMENT when implemented) must store negative
+ * quantities so balance remains SUM(movements.quantity).
+ */
 enum MovementType: string
 {
     case RECEIVED = 'RECEIVED';

@@ -3,16 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MovementResource;
+use App\Models\Movement;
+use App\Sorts\TieBreakerSort;
 use Illuminate\Http\Request;
-
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
-
-use App\Models\Movement;
-use App\Http\Resources\MovementResource;
-
-use App\Sorts\TieBreakerSort;
 
 class MovementController extends Controller
 {
@@ -21,16 +18,13 @@ class MovementController extends Controller
         $query = Movement::with([
             'snapshot',
         ])
-            ->select(
-                'movements.*',
-                'snapshots.*',
-            )
-            ->join('snapshots', 'snapshots.movement_id', '=', 'movements.id');
+            ->select('movements.*')
+            ->join('snapshots', 'snapshots.id', '=', 'movements.snapshot_id');
 
         $items = QueryBuilder::for($query)
             ->allowedFilters(
                 AllowedFilter::exact('movementable_id', 'movementable_id'),
-                AllowedFilter::exact('type', 'type'),
+                AllowedFilter::exact('type', 'movement_type'),
                 AllowedFilter::partial('name', 'snapshot.item_name'),
                 AllowedFilter::exact('categories', 'snapshot.item_category'),
                 AllowedFilter::exact('severities', 'snapshot.item_severity'),
