@@ -30,7 +30,7 @@ class ReceivedSeeder extends Seeder
                 foreach ($vessels as $vessel) {
                     $received = TransactionReport::create([
                         'vessel_id' => $vessel->id,
-                        'number' => TransactionReport::nextNumber(TransactionReportType::RECEIVED),
+                        'number' => TransactionReport::nextNumber(TransactionReportType::RECEIVED, $vessel->id),
                         'created_by' => User::first()->id,
                         'transaction_report_type' => TransactionReportType::RECEIVED,
                     ]);

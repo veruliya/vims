@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('item_id')->constrained('items');
             $table->decimal('minimum_quantity');
             $table->timestamps();
+
+            $table->unique(['store_id', 'item_id']);
         });
     }
 

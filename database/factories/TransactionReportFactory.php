@@ -21,15 +21,26 @@ class TransactionReportFactory extends Factory
         return [
             'vessel_id' => Vessel::factory(),
             'created_by' => User::factory(),
-            'number' => '001/REC/I/2026',
             'transaction_report_type' => TransactionReportType::RECEIVED,
+            'number' => function (array $attributes): string {
+                $vesselId = $attributes['vessel_id'] instanceof Vessel
+                    ? $attributes['vessel_id']->id
+                    : $attributes['vessel_id'];
+
+                $type = $attributes['transaction_report_type'] ?? TransactionReportType::RECEIVED;
+
+                if (is_string($type)) {
+                    $type = TransactionReportType::from($type);
+                }
+
+                return TransactionReport::nextNumber($type, (int) $vesselId);
+            },
         ];
     }
 
     public function used(): static
     {
         return $this->state(fn (array $attributes): array => [
-            'number' => '001/USED/I/2026',
             'transaction_report_type' => TransactionReportType::USED,
         ]);
     }

@@ -3,16 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\StoreItemResource;
+use App\Models\StoreItem;
+use App\Sorts\TieBreakerSort;
 use Illuminate\Http\Request;
-
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
-
-use App\Models\StoreItem;
-use App\Http\Resources\StoreItemResource;
-
-use App\Sorts\TieBreakerSort;
 
 class StoreItemController extends Controller
 {
@@ -28,9 +25,9 @@ class StoreItemController extends Controller
                 'items.subcategory as item_subcategory',
                 'units.full_name as unit_full_name',
             )
+            ->withBalance()
             ->join('items', 'items.id', '=', 'store_items.item_id')
             ->join('units', 'units.id', '=', 'items.unit_id')
-            ->selectRaw('COALESCE((SELECT SUM(quantity) FROM movements WHERE movements.store_item_id = store_items.id), 0) as balance')
             ->whereRelation('store', 'vessel_id', 1);
 
         $items = QueryBuilder::for($query)

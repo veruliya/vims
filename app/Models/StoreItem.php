@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\StoreItemFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,6 +26,19 @@ class StoreItem extends Model
         'minimum_quantity' => 'float',
         'balance' => 'float',
     ];
+
+    /**
+     * @param  Builder<StoreItem>  $query
+     * @return Builder<StoreItem>
+     */
+    public function scopeWithBalance(Builder $query): Builder
+    {
+        return $query->addSelect([
+            'balance' => Movement::query()
+                ->selectRaw('COALESCE(SUM(quantity), 0)')
+                ->whereColumn('store_item_id', 'store_items.id'),
+        ]);
+    }
 
     public function item()
     {

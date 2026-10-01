@@ -3,6 +3,7 @@
 namespace Tests\Feature\TransactionReport;
 
 use App\Enums\MovementType;
+use App\Enums\TransactionReportType;
 use App\Models\Item;
 use App\Models\Movement;
 use App\Models\Snapshot;
@@ -190,6 +191,26 @@ class ReceivedControllerTest extends TestCase
 
         $this->assertSame(0, TransactionReport::count());
         $this->assertSame(0, Movement::count());
+    }
+
+    public function test_next_number_is_scoped_per_vessel(): void
+    {
+        $this->travelTo(now()->setDate(2026, 9, 11)->setTime(12, 0));
+
+        $user = User::factory()->create();
+        $vesselA = Vessel::factory()->create();
+        $vesselB = Vessel::factory()->create();
+
+        TransactionReport::factory()->recycle([$vesselA, $user])->create();
+
+        $this->assertSame(
+            '002/REC/IX/2026',
+            TransactionReport::nextNumber(TransactionReportType::RECEIVED, $vesselA->id),
+        );
+        $this->assertSame(
+            '001/REC/IX/2026',
+            TransactionReport::nextNumber(TransactionReportType::RECEIVED, $vesselB->id),
+        );
     }
 
     /**

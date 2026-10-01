@@ -121,7 +121,7 @@ class ReceivedController extends Controller
 
             $receivedReport = TransactionReport::create([
                 'vessel_id' => 1,
-                'number' => TransactionReport::nextNumber(TransactionReportType::RECEIVED),
+                'number' => TransactionReport::nextNumber(TransactionReportType::RECEIVED, 1),
                 'created_by' => User::first()->id,
                 'transaction_report_type' => TransactionReportType::RECEIVED,
             ]);

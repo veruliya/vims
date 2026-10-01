@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('number');
             $table->string('transaction_report_type');
             $table->timestamps();
+
+            $table->unique(['vessel_id', 'number']);
         });
     }
 

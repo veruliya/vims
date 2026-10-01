@@ -38,7 +38,7 @@ class TransactionReport extends Model
         ];
     }
 
-    public static function nextNumber(TransactionReportType $type): string
+    public static function nextNumber(TransactionReportType $type, int $vesselId): string
     {
         $code = match ($type) {
             TransactionReportType::RECEIVED => 'REC',
@@ -48,6 +48,7 @@ class TransactionReport extends Model
         $now = now();
 
         $latestNumbers = static::query()
+            ->where('vessel_id', $vesselId)
             ->where('transaction_report_type', $type)
             ->lockForUpdate()
             ->pluck('number');
